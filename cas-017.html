@@ -78,15 +78,18 @@ a { text-decoration: none; color: inherit; }
 .info-box.blue { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
 .info-box.green { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
 .info-box.gold { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
-.info-box.gray { background: #f9fafb; border: 1px solid #e5e7eb; color: #374151; }
+.info-box.gray { background: #f8fafc; border: 1px solid #e5e7eb; color: #374151; }
+.info-box.purple { background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; }
 
 /* Section 1 — Scan importé */
 .badge-imported { display: inline-flex; align-items: center; gap: 4px; background: #f0fdf4; color: #16a34a; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
 .scan-meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
-.scan-meta-item { background: #f9fafb; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #6b7280; }
+.scan-meta-item { background: #f8fafc; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #6b7280; }
 .scan-meta-item strong { display: block; color: #1a1a2e; font-size: 13px; margin-top: 2px; }
 .btn-scroll { background: #f5f7fa; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; color: #3b9ecc; margin-top: 12px; }
 .btn-scroll:hover { background: #eff6ff; }
+.checklist-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
+.checklist-item .check { color: #16a34a; font-weight: 700; }
 
 /* Fake scan CSS */
 .fake-scan { position: relative; background: #0a1118; border-radius: 8px; overflow: hidden; min-height: 200px; }
@@ -106,11 +109,6 @@ a { text-decoration: none; color: inherit; }
 .quadrant:nth-child(3) { background: #0b1319; }
 .quadrant:nth-child(4) { background: #0d161e; }
 .quadrant .q-label { position: absolute; top: 6px; left: 8px; font-size: 9px; color: rgba(255,255,255,0.4); font-family: monospace; text-transform: uppercase; letter-spacing: 0.5px; }
-.quadrant .jaw-arc { bottom: 15%; }
-.quadrant .tooth { height: 20px; width: 8px; bottom: 30%; }
-.quadrant .gap { width: 20px; height: 20px; bottom: 30%; }
-.quadrant .crosshair-h { background: rgba(59,158,204,0.2); }
-.quadrant .crosshair-v { background: rgba(59,158,204,0.2); }
 
 /* Section 2 — Analyser */
 .analyze-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
@@ -138,6 +136,13 @@ textarea { width: 100%; min-height: 80px; border: 1px solid #e5e7eb; border-radi
 .btn-row .btn-primary { flex: 1; }
 .btn-gray { background: #f5f7fa; color: #6b7280; border: 1px solid #e5e7eb; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-gray:hover { background: #e5e7eb; }
+
+/* Macro checklist */
+.macro-check { padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
+.macro-check:last-child { border-bottom: none; }
+.macro-check label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.macro-check label input { accent-color: #3b9ecc; }
+.macro-check .macro-desc { font-size: 11px; color: #9ca3af; margin-left: 24px; margin-top: 2px; }
 
 /* Section 3 — Confronter */
 .overlay-toggles { display: flex; gap: 6px; margin-left: auto; }
@@ -204,6 +209,20 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 .halo.blue { background: radial-gradient(circle, rgba(59,158,204,0.4) 0%, transparent 70%); }
 .halo.gold { background: radial-gradient(circle, rgba(232,168,56,0.4) 0%, transparent 70%); }
 
+/* Grille validation FRAME */
+table.validation { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.validation th { padding: 10px 14px; font-weight: 600; text-align: left; background: #fffbeb; border-bottom: 2px solid #fde68a; }
+table.validation td { padding: 10px 14px; border-bottom: 1px solid #f3f4f6; }
+table.validation td.status-ok { color: #16a34a; font-weight: 600; }
+table.validation td.status-warn { color: #d97706; font-weight: 600; }
+table.validation td.status-bad { color: #ef4444; font-weight: 600; }
+
+/* Questionnaire */
+.question-item { padding: 16px 0; border-bottom: 1px solid #f3f4f6; }
+.question-item:last-child { border-bottom: none; }
+.question-item .q { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #1a1a2e; }
+.question-item .a { font-size: 13px; color: #44403c; background: #fffdf5; border-left: 3px solid #e8a838; padding: 8px 12px; border-radius: 0 8px 8px 0; }
+
 /* Section 4 — Décider */
 .treatment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
 .treatment-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; position: relative; }
@@ -225,6 +244,10 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 .tag.frame { background: #eff6ff; color: #2563eb; }
 .tag.sponsor { background: #fef3c7; color: #92400e; }
 
+/* Selects inline */
+.selects-row { display: flex; gap: 12px; margin: 12px 0; }
+.selects-row select { flex: 1; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; font-family: inherit; background: #fff; }
+
 .btn-center { text-align: center; margin-top: 32px; }
 .btn-center .btn-primary { width: auto; padding: 14px 48px; }
 
@@ -234,9 +257,11 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 .tab.active { color: #3b9ecc; border-bottom-color: #3b9ecc; }
 
 .gold-tag { background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+.purple-tag { background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+.blue-tag { background: #eff6ff; color: #3b9ecc; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
 
-/* Section 5 — Résultat */
-.result-score { font-size: 64px; font-weight: 800; color: #3b9ecc; line-height: 1; }
+/* Section 6 — Tracer */
+.result-score { font-size: 56px; font-weight: 800; color: #3b9ecc; line-height: 1; }
 .result-subtitle { font-size: 16px; color: #6b7280; margin-top: 4px; }
 .progress-bar { position: relative; height: 12px; background: #e5e7eb; border-radius: 6px; margin: 24px 0 8px; overflow: visible; }
 .progress-fill { height: 100%; background: #3b9ecc; border-radius: 6px; width: 76%; }
@@ -248,15 +273,35 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 .result-stat .stat-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
 .gold-box { background: #fffdf5; border: 1px solid #e8a838; border-radius: 10px; padding: 16px 20px; font-size: 13px; color: #44403c; line-height: 1.6; margin: 24px 0; }
 .gold-box strong { color: #92400e; }
-.result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+.result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
 .result-actions .btn-primary, .result-actions .btn-secondary { width: auto; padding: 14px 32px; }
+
+/* Steps summary (tracer) */
+.steps-summary { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 20px 0; }
+.step-sum { text-align: center; padding: 12px 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 12px; font-weight: 600; color: #16a34a; }
 
 /* Axes amélioration */
 .axes-list { list-style: none; margin: 16px 0; }
 .axes-list li { padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.5; margin-bottom: 8px; background: #f9fafb; border: 1px solid #e5e7eb; }
 
+/* Archive list */
+.archive-list { list-style: none; margin: 16px 0; }
+.archive-list li { padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+.archive-list li:last-child { border-bottom: none; }
+
 /* Table info box */
 .table-info { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400e; margin-bottom: 12px; }
+
+/* IA structures list */
+.ia-struct { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+.ia-struct:last-child { border-bottom: none; }
+.ia-struct .conf { font-weight: 600; color: #16a34a; }
+
+/* IA pathology */
+.ia-patho { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+.ia-patho:last-child { border-bottom: none; }
+.ia-patho .icon-ok { color: #16a34a; font-weight: 700; }
+.ia-patho .icon-fail { color: #ef4444; font-weight: 700; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .content { animation: fadeIn 0.4s ease-out; }
@@ -264,10 +309,11 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 @media (max-width: 1024px) {
   .sidebar { display: none; }
   .main { margin-left: 0; }
-  .analyze-grid, .treatment-grid, .scores-grid, .insights-grid, .heatmap-grid, .implants-grid, .result-stats { grid-template-columns: 1fr; }
+  .analyze-grid, .treatment-grid, .scores-grid, .insights-grid, .heatmap-grid, .implants-grid, .result-stats, .steps-summary { grid-template-columns: 1fr; }
   .scan-meta-grid { grid-template-columns: 1fr 1fr; }
   .search-box { display: none; }
   .quadrant-grid { min-height: 300px; }
+  .selects-row { flex-direction: column; }
 }
 @media (max-width: 640px) {
   .content { padding: 16px; }
@@ -278,6 +324,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   .result-score { font-size: 48px; }
   .scan-meta-grid { grid-template-columns: 1fr; }
   .btn-row { flex-direction: column; }
+  .steps-summary { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
@@ -298,7 +345,12 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
       </a>
       <div class="nav-sub">
         <a href="cas-pratique.html" class="nav-sub-item">Présentation</a>
-        <a href="cas-017.html" class="nav-sub-item active">Cas en cours</a>
+        <a href="cas-017.html#acquerir" class="nav-sub-item">Acquérir</a>
+        <a href="cas-017.html#analyser" class="nav-sub-item active">Analyser</a>
+        <a href="cas-017.html#augmenter" class="nav-sub-item">Augmenter</a>
+        <a href="cas-017.html#confronter" class="nav-sub-item">Confronter</a>
+        <a href="cas-017.html#decider" class="nav-sub-item">Décider</a>
+        <a href="cas-017.html#tracer" class="nav-sub-item">Tracer</a>
       </div>
     </div>
     <a href="modules.html" class="nav-item">
@@ -333,15 +385,17 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   </div>
 
   <div class="stepper">
-    <div class="step"><div class="step-dot done">✓</div><span class="step-label done">Scan importé</span></div>
+    <div class="step"><div class="step-dot done">✓</div><span class="step-label done">Acquérir</span></div>
     <span class="step-arrow">→</span>
     <div class="step"><div class="step-dot active">2</div><span class="step-label active">Analyser</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">3</div><span class="step-label">Confronter</span></div>
+    <div class="step"><div class="step-dot">3</div><span class="step-label">Augmenter</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">4</div><span class="step-label">Décider</span></div>
+    <div class="step"><div class="step-dot">4</div><span class="step-label">Confronter</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">5</div><span class="step-label">Résultat</span></div>
+    <div class="step"><div class="step-dot">5</div><span class="step-label">Décider</span></div>
+    <span class="step-arrow">→</span>
+    <div class="step"><div class="step-dot">6</div><span class="step-label">Tracer</span></div>
   </div>
 
   <div class="cas-header">
@@ -358,18 +412,18 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   <div class="content">
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SECTION 1 — SCAN IMPORTÉ                    -->
+    <!-- SECTION 1 — ACQUÉRIR                        -->
     <!-- ═══════════════════════════════════════════ -->
-    <div class="section" id="scan-importe">
-      <h2>Étape 1 — Scan importé</h2>
-      <p class="subtitle">Vérification et aperçu des données CBCT</p>
+    <div class="section" id="acquerir">
+      <h2>Étape 1 — Acquérir</h2>
+      <p class="subtitle">Import CBCT, anonymisation, vérification qualité</p>
 
       <div class="info-box green">
-        Le scan CBCT de votre patient a été importé et vérifié. Les données sont anonymisées conformément au RGPD. Vous pouvez maintenant commencer l'analyse.
+        Le scan CBCT a été importé, anonymisé automatiquement (pydicom) et vérifié. Qualité validée, aucun artefact détecté.
       </div>
 
       <div class="card">
-        <div class="badge-imported">✓ Importé avec succès</div>
+        <div class="badge-imported">✓ Acquisition terminée</div>
         <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Scan CBCT — Patient anonymisé #017</h3>
 
         <div class="scan-meta-grid">
@@ -377,32 +431,34 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
           <div class="scan-meta-item">Format<strong>DICOM 3.0</strong></div>
           <div class="scan-meta-item">Secteur<strong>36-37 (mandibulaire gauche)</strong></div>
           <div class="scan-meta-item">Coupes<strong>287 slices</strong></div>
-          <div class="scan-meta-item">Épaisseur<strong>0.5mm</strong></div>
-          <div class="scan-meta-item">Taille<strong>347 Mo</strong></div>
+          <div class="scan-meta-item">Épaisseur de coupe<strong>0.5mm</strong></div>
+          <div class="scan-meta-item">Taille fichier<strong>347 Mo</strong></div>
         </div>
 
-        <!-- Faux scan CSS -->
         <div class="fake-scan" style="min-height:220px">
           <div class="jaw-arc"></div>
-          <!-- Dents (de gauche à droite) -->
           <div class="tooth" style="left:18%"></div>
           <div class="tooth" style="left:24%"></div>
           <div class="tooth" style="left:30%"></div>
           <div class="tooth" style="left:36%"></div>
-          <!-- Gap 36-37 -->
           <div class="gap" style="left:43%"></div>
           <div class="gap" style="left:54%"></div>
-          <!-- Dents après le gap -->
           <div class="tooth" style="left:64%"></div>
           <div class="tooth" style="left:70%"></div>
           <div class="tooth" style="left:76%"></div>
-          <!-- Crosshairs -->
           <div class="crosshair-h"></div>
           <div class="crosshair-v"></div>
           <div class="scan-label">Axiale — Slice 142/287</div>
         </div>
 
-        <p style="font-size:13px;color:#6b7280;margin-top:12px">Importé le 14/02/2026 à 09:32 — Qualité : Excellente — Aucun artefact détecté</p>
+        <div style="margin-top:16px">
+          <div class="checklist-item"><span class="check">✓</span> Fichier DICOM importé avec succès</div>
+          <div class="checklist-item"><span class="check">✓</span> Anonymisation patient effectuée (RGPD)</div>
+          <div class="checklist-item"><span class="check">✓</span> Contrôle qualité : résolution OK, pas d'artefact</div>
+          <div class="checklist-item"><span class="check">✓</span> Catégorisation : Édentement postérieur, classe II</div>
+        </div>
+
+        <p style="font-size:12px;color:#9ca3af;margin-top:12px">Importé le 14/02/2026 à 09:32</p>
         <button class="btn-scroll" onclick="document.getElementById('analyser').scrollIntoView({behavior:'smooth'})">Commencer l'analyse ↓</button>
       </div>
     </div>
@@ -412,147 +468,283 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
     <!-- ═══════════════════════════════════════════ -->
     <div class="section" id="analyser">
       <h2>Étape 2 — Analyser le scan CBCT</h2>
-      <p class="subtitle">Naviguez dans les coupes, identifiez les pathologies, annotez vos observations</p>
+      <p class="subtitle">Analyse en deux temps : macro puis micro</p>
 
       <div class="info-box blue">
-        Naviguez dans les coupes CBCT (axiale, coronale, sagittale), identifiez les pathologies visibles, prenez des mesures et annotez vos observations. Prenez votre temps — le Dr. Fromental a mis 4 minutes 30 sur ce cas.
+        Analysez le scan CBCT en deux temps : d'abord une vue macro (morphologie générale, hauteur et largeur de crête), puis une analyse micro (lésions spécifiques, mesures précises, densité osseuse). Le Dr. Fromental a mis 4 min 30 sur ce cas.
       </div>
 
-      <div class="analyze-grid">
-        <div>
-          <div class="viewer">
-            <div class="viewer-toolbar">
-              <button class="active">MPR</button>
-              <button>Volume 3D</button>
-              <button>Panoramique</button>
-              <button>Mesure</button>
-              <button>Annotation</button>
-              <button>Reset</button>
-            </div>
-            <!-- 4 quadrants -->
-            <div class="quadrant-grid">
-              <!-- Axiale -->
-              <div class="quadrant">
-                <span class="q-label">Axiale</span>
-                <div class="jaw-arc" style="position:absolute;bottom:15%;left:10%;width:80%;height:40%;border:2px solid rgba(200,210,220,0.12);border-radius:50% 50% 0 0;border-bottom:none"></div>
-                <div class="tooth" style="position:absolute;left:22%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
-                <div class="tooth" style="position:absolute;left:32%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
-                <div class="gap" style="position:absolute;left:44%;bottom:30%;width:20px;height:20px;border:1px dashed rgba(239,68,68,0.25);border-radius:4px"></div>
-                <div class="tooth" style="position:absolute;left:66%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
-                <div class="tooth" style="position:absolute;left:76%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
-                <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
-                <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
-                <!-- Measure -->
-                <div style="position:absolute;top:40%;left:25%;width:80px;border-top:1px dashed rgba(59,158,204,0.5)"></div>
-                <div style="position:absolute;top:38%;left:60%;font-size:9px;color:#3b9ecc;font-family:monospace;background:rgba(10,17,24,0.8);padding:1px 4px;border-radius:3px">8.2 mm</div>
+      <!-- 2A — Analyse MACRO -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <h3 style="font-size:17px;font-weight:700">Analyse macro — Vue d'ensemble</h3>
+          <span class="blue-tag">Étape 2A</span>
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:16px">Commencez par observer la morphologie générale. Évaluez la hauteur et la largeur de la crête résiduelle, identifiez les grandes structures anatomiques, repérez les anomalies évidentes.</p>
+
+        <div class="analyze-grid">
+          <div>
+            <div class="viewer">
+              <div class="viewer-toolbar">
+                <button>MPR</button>
+                <button>Volume 3D</button>
+                <button class="active">Panoramique</button>
+                <button>Mesure</button>
+                <button>Annotation</button>
               </div>
-              <!-- Coronale -->
-              <div class="quadrant">
-                <span class="q-label">Coronale</span>
-                <div style="position:absolute;bottom:25%;left:15%;width:70%;height:35%;border:2px solid rgba(200,210,220,0.1);border-radius:0 0 40% 40%;border-top:none"></div>
-                <div class="tooth" style="position:absolute;left:30%;bottom:35%;width:8px;height:22px;background:rgba(200,210,220,0.15);border-radius:3px 3px 0 0"></div>
-                <div class="tooth" style="position:absolute;left:60%;bottom:35%;width:8px;height:22px;background:rgba(200,210,220,0.15);border-radius:3px 3px 0 0"></div>
-                <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
-                <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
-              </div>
-              <!-- Sagittale -->
-              <div class="quadrant">
-                <span class="q-label">Sagittale</span>
-                <div style="position:absolute;bottom:20%;left:20%;width:60%;height:30%;border:2px solid rgba(200,210,220,0.1);border-radius:30% 30% 0 0;border-bottom:none"></div>
-                <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
-                <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
-                <!-- Measure -->
-                <div style="position:absolute;top:35%;left:45%;height:60px;width:1px;border-left:1px dashed rgba(59,158,204,0.5)"></div>
-                <div style="position:absolute;top:55%;left:48%;font-size:9px;color:#3b9ecc;font-family:monospace;background:rgba(10,17,24,0.8);padding:1px 4px;border-radius:3px">6.7 mm</div>
-              </div>
-              <!-- Volume 3D -->
-              <div class="quadrant">
-                <span class="q-label">Volume 3D</span>
-                <!-- Simulated 3D jaw shape -->
-                <div style="position:absolute;bottom:15%;left:15%;width:70%;height:50%;border:2px solid rgba(200,210,220,0.08);border-radius:50%;"></div>
-                <div style="position:absolute;bottom:30%;left:25%;width:50%;height:25%;border:1px solid rgba(200,210,220,0.06);border-radius:40%;"></div>
-                <div style="position:absolute;bottom:20%;left:20%;width:60%;height:10%;background:rgba(200,210,220,0.04);border-radius:0 0 30% 30%"></div>
+              <div class="fake-scan" style="min-height:280px;margin:8px;border-radius:6px">
+                <div class="jaw-arc"></div>
+                <div class="tooth" style="left:15%"></div>
+                <div class="tooth" style="left:21%"></div>
+                <div class="tooth" style="left:27%"></div>
+                <div class="tooth" style="left:33%"></div>
+                <div class="tooth" style="left:39%"></div>
+                <div class="gap" style="left:46%"></div>
+                <div class="gap" style="left:56%"></div>
+                <div class="tooth" style="left:66%"></div>
+                <div class="tooth" style="left:72%"></div>
+                <div class="tooth" style="left:78%"></div>
+                <div class="crosshair-h"></div>
+                <div class="crosshair-v"></div>
+                <div class="scan-label">Vue panoramique — Macro</div>
               </div>
             </div>
-            <div class="viewer-coords">
-              <span>X:142</span><span>Y:98</span><span>Z:203</span><span>HU:1247</span><span>Zoom:120%</span>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:0">
+              <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Observations macro</h4>
+              <div class="macro-check">
+                <label><input type="checkbox" checked> Morphologie générale de la crête</label>
+                <div class="macro-desc">Forme, contour et continuité de la crête alvéolaire</div>
+              </div>
+              <div class="macro-check">
+                <label><input type="checkbox" checked> Type de résorption (centripète / centrifuge)</label>
+                <div class="macro-desc">Direction de la perte osseuse par rapport à la crête</div>
+              </div>
+              <div class="macro-check">
+                <label><input type="checkbox"> Symétrie des structures</label>
+                <div class="macro-desc">Comparaison droite/gauche des repères anatomiques</div>
+              </div>
+              <div class="macro-check">
+                <label><input type="checkbox" checked> Hauteur de crête résiduelle</label>
+                <div class="macro-desc">Estimation visuelle avant mesures précises</div>
+              </div>
+              <div class="macro-check">
+                <label><input type="checkbox"> Rapport crête / structures adjacentes</label>
+                <div class="macro-desc">Relation avec le canal, le sinus, les dents voisines</div>
+              </div>
+              <textarea style="min-height:60px;margin-top:12px" placeholder="Vos notes macro..."></textarea>
             </div>
           </div>
         </div>
+      </div>
 
-        <div>
-          <div class="card">
-            <h4 style="font-size:14px;font-weight:600;margin-bottom:4px">Pathologies détectées</h4>
-            <p style="font-size:11px;color:#9ca3af;margin-bottom:12px">7 éléments à vérifier</p>
+      <!-- 2B — Analyse MICRO -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <h3 style="font-size:17px;font-weight:700">Analyse micro — Zones spécifiques</h3>
+          <span class="blue-tag">Étape 2B</span>
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:16px">Zoomez sur chaque zone d'intérêt. Prenez des mesures précises, identifiez les pathologies et évaluez la densité osseuse.</p>
 
-            <div class="pathology-item">
-              <input type="checkbox" checked>
-              <div class="pathology-main">Résorption osseuse<div class="pathology-desc">Zone de résorption visible en coupe coronale</div></div>
-              <span class="conf-badge high">92%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox" checked>
-              <div class="pathology-main">Lésion périapicale<div class="pathology-desc">Image radioclaire en périapical de l'ancienne 36</div></div>
-              <span class="conf-badge high">88%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox">
-              <div class="pathology-main">Fracture radiculaire</div>
-              <span class="conf-badge med">67%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox" checked>
-              <div class="pathology-main">Perte de hauteur crestale<div class="pathology-desc">Perte de 3mm par rapport à la crête normale</div></div>
-              <span class="conf-badge high">95%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox">
-              <div class="pathology-main">Proximité canal mandibulaire</div>
-              <span class="conf-badge med">72%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox" checked>
-              <div class="pathology-main">Épaississement sinusien<div class="pathology-desc">Muqueuse légèrement épaissie, à surveiller</div></div>
-              <span class="conf-badge low">45%</span>
-            </div>
-            <div class="pathology-item">
-              <input type="checkbox">
-              <div class="pathology-main">Kyste résiduel</div>
-              <span class="conf-badge med">58%</span>
+        <div class="analyze-grid">
+          <div>
+            <div class="viewer">
+              <div class="viewer-toolbar">
+                <button class="active">MPR</button>
+                <button>Volume 3D</button>
+                <button>Panoramique</button>
+                <button>Mesure</button>
+                <button>Annotation</button>
+                <button>Reset</button>
+              </div>
+              <div class="quadrant-grid">
+                <div class="quadrant">
+                  <span class="q-label">Axiale</span>
+                  <div style="position:absolute;bottom:15%;left:10%;width:80%;height:40%;border:2px solid rgba(200,210,220,0.12);border-radius:50% 50% 0 0;border-bottom:none"></div>
+                  <div style="position:absolute;left:22%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;left:32%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;left:44%;bottom:30%;width:20px;height:20px;border:1px dashed rgba(239,68,68,0.25);border-radius:4px"></div>
+                  <div style="position:absolute;left:66%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;left:76%;bottom:30%;width:8px;height:20px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
+                  <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
+                  <div style="position:absolute;top:40%;left:25%;width:80px;border-top:1px dashed rgba(59,158,204,0.5)"></div>
+                  <div style="position:absolute;top:38%;left:60%;font-size:9px;color:#3b9ecc;font-family:monospace;background:rgba(10,17,24,0.8);padding:1px 4px;border-radius:3px">8.2 mm</div>
+                </div>
+                <div class="quadrant">
+                  <span class="q-label">Coronale</span>
+                  <div style="position:absolute;bottom:25%;left:15%;width:70%;height:35%;border:2px solid rgba(200,210,220,0.1);border-radius:0 0 40% 40%;border-top:none"></div>
+                  <div style="position:absolute;left:30%;bottom:35%;width:8px;height:22px;background:rgba(200,210,220,0.15);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;left:60%;bottom:35%;width:8px;height:22px;background:rgba(200,210,220,0.15);border-radius:3px 3px 0 0"></div>
+                  <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
+                  <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
+                </div>
+                <div class="quadrant">
+                  <span class="q-label">Sagittale</span>
+                  <div style="position:absolute;bottom:20%;left:20%;width:60%;height:30%;border:2px solid rgba(200,210,220,0.1);border-radius:30% 30% 0 0;border-bottom:none"></div>
+                  <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.2)"></div>
+                  <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.2)"></div>
+                  <div style="position:absolute;top:35%;left:45%;height:60px;width:1px;border-left:1px dashed rgba(59,158,204,0.5)"></div>
+                  <div style="position:absolute;top:55%;left:48%;font-size:9px;color:#3b9ecc;font-family:monospace;background:rgba(10,17,24,0.8);padding:1px 4px;border-radius:3px">6.7 mm</div>
+                </div>
+                <div class="quadrant">
+                  <span class="q-label">Volume 3D</span>
+                  <div style="position:absolute;bottom:15%;left:15%;width:70%;height:50%;border:2px solid rgba(200,210,220,0.08);border-radius:50%"></div>
+                  <div style="position:absolute;bottom:30%;left:25%;width:50%;height:25%;border:1px solid rgba(200,210,220,0.06);border-radius:40%"></div>
+                  <div style="position:absolute;bottom:20%;left:20%;width:60%;height:10%;background:rgba(200,210,220,0.04);border-radius:0 0 30% 30%"></div>
+                </div>
+              </div>
+              <div class="viewer-coords">
+                <span>X:142</span><span>Y:98</span><span>Z:203</span><span>HU:1247</span><span>Zoom:120%</span>
+              </div>
             </div>
           </div>
 
-          <div class="card">
-            <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Mesures clés</h4>
-            <div class="measure-row"><span>Hauteur 36</span><span class="measure-val">8.2 mm</span></div>
-            <div class="measure-row"><span>Hauteur 37</span><span class="measure-val">6.7 mm</span></div>
-            <div class="measure-row"><span>Largeur VL</span><span class="measure-val">9.1 mm</span></div>
-            <div class="measure-row"><span>Distance canal</span><span class="measure-val warning">4.3 mm</span></div>
-            <div class="measure-warning">⚠ Attention : distance inférieure au seuil de sécurité (5mm)</div>
+          <div>
+            <div class="card">
+              <h4 style="font-size:14px;font-weight:600;margin-bottom:4px">Pathologies détectées</h4>
+              <p style="font-size:11px;color:#9ca3af;margin-bottom:12px">7 éléments à vérifier</p>
+
+              <div class="pathology-item">
+                <input type="checkbox" checked>
+                <div class="pathology-main">Résorption osseuse<div class="pathology-desc">Zone de résorption visible en coupe coronale</div></div>
+                <span class="conf-badge high">92%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox" checked>
+                <div class="pathology-main">Lésion périapicale<div class="pathology-desc">Image radioclaire en périapical de 36</div></div>
+                <span class="conf-badge high">88%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox">
+                <div class="pathology-main">Fracture radiculaire</div>
+                <span class="conf-badge med">67%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox" checked>
+                <div class="pathology-main">Perte de hauteur crestale<div class="pathology-desc">Crête résiduelle à 8.2mm en 36</div></div>
+                <span class="conf-badge high">95%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox">
+                <div class="pathology-main">Proximité canal mandibulaire</div>
+                <span class="conf-badge med">72%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox" checked>
+                <div class="pathology-main">Épaississement sinusien<div class="pathology-desc">Épaississement muqueux modéré</div></div>
+                <span class="conf-badge low">45%</span>
+              </div>
+              <div class="pathology-item">
+                <input type="checkbox">
+                <div class="pathology-main">Kyste résiduel</div>
+                <span class="conf-badge med">58%</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Mesures clés</h4>
+              <div class="measure-row"><span>Hauteur 36</span><span class="measure-val">8.2 mm</span></div>
+              <div class="measure-row"><span>Hauteur 37</span><span class="measure-val">6.7 mm</span></div>
+              <div class="measure-row"><span>Largeur VL</span><span class="measure-val">9.1 mm</span></div>
+              <div class="measure-row"><span>Distance canal</span><span class="measure-val warning">4.3 mm</span></div>
+              <div class="measure-warning">⚠ Distance inférieure au seuil de sécurité (5mm)</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Observations cliniques -->
-      <div class="card" style="margin-top:20px">
-        <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Vos observations cliniques</h4>
-        <textarea placeholder="Exemple : Résorption osseuse modérée en secteur 36-37, avec une perte de hauteur crestale significative. La distance au canal mandibulaire est limite..."></textarea>
+      <div class="card">
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Observations cliniques</h4>
+        <textarea placeholder="Décrivez vos observations cliniques : état de la crête résiduelle, pathologies identifiées, structures anatomiques à risque, densité osseuse estimée, plan d'implantation envisagé..."></textarea>
         <div class="btn-row">
           <button class="btn-gray">Sauvegarder brouillon</button>
-          <button class="btn-primary" onclick="document.getElementById('confronter').scrollIntoView({behavior:'smooth'})">Valider et passer à la confrontation →</button>
+          <button class="btn-primary" onclick="document.getElementById('augmenter').scrollIntoView({behavior:'smooth'})">Valider mon analyse →</button>
         </div>
       </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SECTION 3 — CONFRONTER                      -->
+    <!-- SECTION 3 — AUGMENTER                       -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="augmenter">
+      <h2>Étape 3 — Augmenter avec l'IA</h2>
+      <p class="subtitle">Analyse automatique par Diagnocat — Segmentation, pathologies, plan</p>
+
+      <div class="info-box purple">
+        L'IA Diagnocat analyse maintenant le même scan. Segmentation 3D automatique, détection de pathologies et proposition de plan de traitement. Durée : 8 secondes.
+      </div>
+
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <h3 style="font-size:17px;font-weight:700">Rapport IA — Diagnocat</h3>
+          <span class="purple-tag">3e avis automatique</span>
+        </div>
+
+        <!-- Bloc 1 — Segmentation -->
+        <div class="card" style="background:#faf5ff;border-color:#e9d5ff">
+          <h4 style="font-size:15px;font-weight:600;margin-bottom:12px">Segmentation 3D automatique</h4>
+          <div style="position:relative;background:#0a1118;border-radius:8px;min-height:200px;overflow:hidden">
+            <div style="position:absolute;top:20%;left:15%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle, rgba(147,51,234,0.3) 0%, transparent 70%)"></div>
+            <div style="position:absolute;top:35%;left:45%;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle, rgba(147,51,234,0.25) 0%, transparent 70%)"></div>
+            <div style="position:absolute;top:50%;left:25%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle, rgba(147,51,234,0.35) 0%, transparent 70%)"></div>
+            <div style="position:absolute;top:15%;left:65%;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)"></div>
+            <div style="position:absolute;top:60%;left:60%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle, rgba(147,51,234,0.28) 0%, transparent 70%)"></div>
+            <div style="position:absolute;bottom:8px;left:12px;font-size:10px;color:rgba(255,255,255,0.3);font-family:monospace">Diagnocat — Segmentation complète en 8.2 sec</div>
+          </div>
+          <div style="margin-top:12px">
+            <h5 style="font-size:13px;font-weight:600;margin-bottom:8px">Structures identifiées</h5>
+            <div class="ia-struct"><span>Canal mandibulaire</span><span class="conf">Confiance 98%</span></div>
+            <div class="ia-struct"><span>Nerf alvéolaire inférieur</span><span class="conf">Confiance 96%</span></div>
+            <div class="ia-struct"><span>Sinus maxillaire</span><span class="conf">Confiance 94%</span></div>
+            <div class="ia-struct"><span>Os cortical / spongieux</span><span class="conf">Confiance 91%</span></div>
+          </div>
+        </div>
+
+        <!-- Bloc 2 — Pathologies IA -->
+        <div class="card">
+          <h4 style="font-size:15px;font-weight:600;margin-bottom:12px">Pathologies détectées par l'IA</h4>
+          <div class="ia-patho"><span class="icon-ok">✓</span><span style="flex:1">Résorption osseuse</span><span class="conf-badge high">94%</span></div>
+          <div class="ia-patho"><span class="icon-ok">✓</span><span style="flex:1">Perte de hauteur crestale</span><span class="conf-badge high">89%</span></div>
+          <div class="ia-patho"><span class="icon-ok">✓</span><span style="flex:1">Proximité canal mandibulaire</span><span class="conf-badge high">92%</span></div>
+          <div class="ia-patho"><span class="icon-ok">✓</span><span style="flex:1">Épaisseur VL insuffisante</span><span class="conf-badge high">87%</span></div>
+          <div class="ia-patho"><span class="icon-ok">✓</span><span style="flex:1">Densité osseuse réduite 37</span><span class="conf-badge med">76%</span></div>
+          <div class="ia-patho"><span class="icon-fail">✗</span><span style="flex:1;color:#9ca3af">Lésion périapicale résiduelle</span><span class="conf-badge low">31%</span></div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 14px;font-size:12px;color:#92400e;margin-top:12px;line-height:1.5">
+            L'IA n'a pas détecté la lésion périapicale résiduelle (confiance 31%). Ce type de lésion en cours de cicatrisation échappe aux modèles actuels.
+          </div>
+        </div>
+
+        <!-- Bloc 3 — Plan IA -->
+        <div class="card">
+          <h4 style="font-size:15px;font-weight:600;margin-bottom:12px">Plan de traitement proposé par l'IA</h4>
+          <ol style="font-size:13px;line-height:2;padding-left:20px">
+            <li>Implant en 36 : Ø4.0mm × 10mm</li>
+            <li>Implant en 37 : Ø4.0mm × 8mm (court)</li>
+            <li>Pas de greffe recommandée (épaisseur jugée suffisante par l'IA)</li>
+          </ol>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 14px;font-size:12px;color:#92400e;margin-top:12px;line-height:1.5">
+            Note : le Dr. Fromental recommande une greffe osseuse que l'IA ne juge pas nécessaire. La confrontation permettra de comprendre cette divergence.
+          </div>
+        </div>
+
+        <div class="btn-center">
+          <button class="btn-primary" style="width:auto;padding:14px 48px" onclick="document.getElementById('confronter').scrollIntoView({behavior:'smooth'})">Voir la confrontation →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 4 — CONFRONTER                      -->
     <!-- ═══════════════════════════════════════════ -->
     <div class="section" id="confronter">
-      <h2>Étape 3 — Confrontation tripartite</h2>
-      <p class="subtitle">Comparez votre analyse avec celle du Dr. Fromental et de l'IA</p>
+      <h2>Étape 4 — Confrontation tripartite</h2>
+      <p class="subtitle">Vous vs Dr. Fromental vs IA — Overlay, grille FRAME, écarts</p>
 
       <div class="info-box gold">
-        C'est le cœur de FRAME. Votre analyse est maintenant comparée avec celle du Dr. Fromental (50 ans d'expertise) et celle de l'IA Diagnocat. Les annotations sont superposées sur le même scan — activez/désactivez chaque couche pour voir les différences.
+        C'est le cœur de FRAME. Votre analyse est comparée avec celle du Dr. Fromental (50 ans d'expertise) et celle de l'IA Diagnocat. Les annotations sont superposées — activez/désactivez chaque couche.
       </div>
 
       <div class="analyze-grid">
@@ -570,7 +762,6 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
               </div>
             </div>
             <div class="viewer-overlay">
-              <!-- Fake scan background -->
               <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#0a1118;z-index:0">
                 <div style="position:absolute;bottom:20%;left:10%;width:80%;height:40%;border:2px solid rgba(200,210,220,0.12);border-radius:50% 50% 0 0;border-bottom:none"></div>
                 <div style="position:absolute;bottom:35%;left:18%;width:12px;height:30px;background:rgba(200,210,220,0.18);border-radius:3px 3px 0 0"></div>
@@ -583,22 +774,18 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
                 <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(59,158,204,0.15)"></div>
                 <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(59,158,204,0.15)"></div>
               </div>
-              <!-- Annotations -->
               <div class="annotations-layer">
-                <!-- Vos annotations (bleu) — 4 cercles -->
                 <div class="annot-circle blue" style="top:25%;left:22%">1</div>
                 <div class="annot-circle blue" style="top:40%;left:52%">2</div>
                 <div class="annot-circle blue" style="top:58%;left:35%">3</div>
                 <div class="annot-circle blue" style="top:68%;left:68%">4</div>
-                <!-- Fromental (or) — 7 cercles. C, E, G dans zones sans bleu -->
                 <div class="annot-circle gold" style="top:22%;left:25%">A</div>
                 <div class="annot-circle gold" style="top:38%;left:55%">B</div>
-                <div class="annot-circle gold" style="top:30%;left:75%">C</div><!-- manqué -->
+                <div class="annot-circle gold" style="top:30%;left:75%">C</div>
                 <div class="annot-circle gold" style="top:55%;left:38%">D</div>
-                <div class="annot-circle gold" style="top:48%;left:15%">E</div><!-- manqué -->
+                <div class="annot-circle gold" style="top:48%;left:15%">E</div>
                 <div class="annot-circle gold" style="top:65%;left:70%">F</div>
-                <div class="annot-circle gold" style="top:75%;left:45%">G</div><!-- manqué -->
-                <!-- IA halos (violet) -->
+                <div class="annot-circle gold" style="top:75%;left:45%">G</div>
                 <div class="annot-halo" style="width:70px;height:70px;top:20%;left:20%"></div>
                 <div class="annot-halo" style="width:80px;height:80px;top:36%;left:48%"></div>
                 <div class="annot-halo" style="width:60px;height:60px;top:62%;left:60%"></div>
@@ -669,7 +856,24 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
         </div>
       </div>
 
-      <!-- Résultats de la confrontation (full width) -->
+      <!-- Grille de validation FRAME -->
+      <div class="card" style="margin-top:24px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <h3 style="font-size:17px;font-weight:700">Grille de validation FRAME</h3>
+          <span class="gold-tag">Évaluation</span>
+        </div>
+        <table class="validation">
+          <tr><th>Critère</th><th>Votre statut</th><th>Référence Fromental</th></tr>
+          <tr><td>Pathologies principales identifiées</td><td class="status-warn">4/7</td><td class="status-ok">7/7 ✓</td></tr>
+          <tr><td>Mesures anatomiques prises</td><td class="status-warn">3/4</td><td class="status-ok">4/4 ✓</td></tr>
+          <tr><td>Structures à risque repérées</td><td class="status-bad">1/2</td><td class="status-ok">2/2 ✓</td></tr>
+          <tr><td>Plan de traitement cohérent</td><td class="status-warn">Partiel</td><td class="status-ok">Complet ✓</td></tr>
+          <tr><td>Temps d'analyse</td><td class="status-warn">12:15</td><td class="status-ok">4:30 ✓</td></tr>
+          <tr><td>Score de concordance global</td><td class="status-warn">62%</td><td class="status-ok">Objectif 85%</td></tr>
+        </table>
+      </div>
+
+      <!-- Résultats de la confrontation -->
       <div style="margin-top:24px">
         <h3 style="font-size:17px;font-weight:700;margin-bottom:16px">Résultats de la confrontation</h3>
 
@@ -681,7 +885,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
         </div>
 
         <div class="card">
-          <div class="table-info">Les lignes en rouge indiquent les pathologies que vous avez manquées. Cliquez sur une ligne pour voir l'explication détaillée.</div>
+          <div class="table-info">Les lignes rouges = pathologies manquées</div>
           <table class="compare">
             <tr>
               <th style="text-align:left">Pathologie</th>
@@ -742,21 +946,72 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
           </div>
         </div>
 
+        <!-- Questionnaire pédagogique -->
+        <div class="card" style="margin-top:24px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <h4 style="font-size:15px;font-weight:700">Questionnaire pédagogique</h4>
+            <span class="gold-tag">Dr. Fromental</span>
+          </div>
+          <div class="question-item">
+            <div class="q">Quel est votre niveau de certitude ?</div>
+            <div class="a">Élevé — 95%. Les signes sont clairs si on sait où regarder.</div>
+          </div>
+          <div class="question-item">
+            <div class="q">Quel a été le premier indice ?</div>
+            <div class="a">La résorption centripète visible dès la vue panoramique.</div>
+          </div>
+          <div class="question-item">
+            <div class="q">Quel est le piège principal ?</div>
+            <div class="a">La lésion périapicale résiduelle. Densité proche de l'os spongieux sain.</div>
+          </div>
+          <div class="question-item">
+            <div class="q">Résumez en une phrase</div>
+            <div class="a">Édentement postérieur avec résorption modérée et lésion résiduelle masquée — greffe obligatoire avant implantation.</div>
+          </div>
+        </div>
+
         <div class="btn-center">
-          <button class="btn-primary" style="width:auto;padding:14px 48px" onclick="document.getElementById('decider').scrollIntoView({behavior:'smooth'})">Passer au plan de traitement →</button>
+          <button class="btn-primary" style="width:auto;padding:14px 48px" onclick="document.getElementById('decider').scrollIntoView({behavior:'smooth'})">Rédiger mon plan de traitement →</button>
         </div>
       </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SECTION 4 — DÉCIDER                         -->
+    <!-- SECTION 5 — DÉCIDER                         -->
     <!-- ═══════════════════════════════════════════ -->
     <div class="section" id="decider">
-      <h2>Étape 4 — Plan de traitement</h2>
-      <p class="subtitle">Choisissez le plan de traitement le plus adapté</p>
+      <h2>Étape 5 — Décider</h2>
+      <p class="subtitle">Rédigez votre plan de traitement final et argumentez vos choix</p>
 
       <div class="info-box blue">
-        Sur la base de votre analyse et de la confrontation, choisissez le plan de traitement le plus adapté. Le Dr. Fromental recommande le chemin Premium pour ce cas spécifique.
+        Rédigez votre plan de traitement final et argumentez vos choix. Comparez ensuite avec la recommandation du Dr. Fromental.
+      </div>
+
+      <!-- Zone de rédaction -->
+      <div class="card">
+        <h3 style="font-size:17px;font-weight:700;margin-bottom:12px">Votre plan de traitement motivé</h3>
+        <textarea style="min-height:120px" placeholder="Rédigez votre plan de traitement complet : diagnostic retenu, approche chirurgicale, type d'implants, nécessité de greffe, chronologie des interventions, suivi post-opératoire..."></textarea>
+        <div class="selects-row">
+          <select>
+            <option>Approche…</option>
+            <option>Greffe + implants</option>
+            <option>Implants seuls</option>
+            <option>Bridge</option>
+            <option>Autre</option>
+          </select>
+          <select>
+            <option>Chronologie…</option>
+            <option>1 temps</option>
+            <option>2 temps</option>
+            <option>Différé</option>
+          </select>
+          <select>
+            <option>Certitude…</option>
+            <option>Élevée</option>
+            <option>Moyenne</option>
+            <option>Faible</option>
+          </select>
+        </div>
       </div>
 
       <div class="treatment-grid">
@@ -844,26 +1099,40 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
       </div>
 
       <div class="btn-center">
-        <button class="btn-primary" style="width:auto;padding:14px 48px" onclick="document.getElementById('resultat').scrollIntoView({behavior:'smooth'})">Voir le résultat final →</button>
+        <button class="btn-primary" style="width:auto;padding:14px 48px" onclick="document.getElementById('tracer').scrollIntoView({behavior:'smooth'})">Valider ma décision →</button>
       </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SECTION 5 — RÉSULTAT                        -->
+    <!-- SECTION 6 — TRACER                          -->
     <!-- ═══════════════════════════════════════════ -->
-    <div class="section" id="resultat">
+    <div class="section" id="tracer">
       <div class="info-box gray">
-        Votre cas pratique est terminé ! Voici votre score de concordance avec le Dr. Fromental et vos axes d'amélioration.
+        Votre dossier FRAME est complet. Toutes les données sont archivées : scan, analyses, confrontation, décision et score. Ce dossier est exploitable pour la formation continue, la recherche clinique et la traçabilité médico-légale.
       </div>
 
-      <div class="card" style="text-align:center;padding:40px">
-        <h2 style="margin-bottom:16px">Résultat final</h2>
-        <div class="result-score">76%</div>
-        <div class="result-subtitle">Score de concordance avec le Dr. Fromental</div>
+      <div class="card" style="padding:40px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <h2 style="margin-bottom:0">Dossier FRAME — Cas #017</h2>
+          <div class="badge-imported">✓ Complet</div>
+        </div>
 
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-          <div class="progress-goal">Objectif 85%</div>
+        <div class="steps-summary">
+          <div class="step-sum">✓ Acquérir</div>
+          <div class="step-sum">✓ Analyser</div>
+          <div class="step-sum">✓ Augmenter</div>
+          <div class="step-sum">✓ Confronter</div>
+          <div class="step-sum">✓ Décider</div>
+          <div class="step-sum">✓ Tracer</div>
+        </div>
+
+        <div style="text-align:center;margin:32px 0">
+          <div class="result-score">76%</div>
+          <div class="result-subtitle">Score de concordance avec le Dr. Fromental</div>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+            <div class="progress-goal">Objectif 85%</div>
+          </div>
         </div>
 
         <div class="result-stats">
@@ -872,7 +1141,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
             <div class="stat-label">Pathologies détectées</div>
           </div>
           <div class="result-stat">
-            <div class="stat-val">8:42</div>
+            <div class="stat-val">12:15</div>
             <div class="stat-label">Temps d'analyse</div>
           </div>
           <div class="result-stat">
@@ -881,23 +1150,37 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
           </div>
         </div>
 
-        <!-- Axes d'amélioration -->
-        <div style="text-align:left;margin-top:24px">
-          <h4 style="font-size:15px;font-weight:700;margin-bottom:12px">Vos axes d'amélioration</h4>
-          <ul class="axes-list">
-            <li>🔴 <strong>Détection lésions résiduelles</strong> — Pratiquez le fenêtrage W:1500/L:300</li>
-            <li>🟡 <strong>Analyse de la densité osseuse</strong> — Comparez systématiquement avec l'os sain adjacent</li>
-            <li>🟢 <strong>Structures anatomiques</strong> — Continuez sur cette lancée, votre détection est solide</li>
+        <div style="margin-top:24px">
+          <h4 style="font-size:15px;font-weight:700;margin-bottom:12px">Contenu archivé</h4>
+          <ul class="archive-list">
+            <li>📄 Scan CBCT original (287 coupes, DICOM 3.0)</li>
+            <li>🔍 Analyse élève (macro + micro, annotations, mesures)</li>
+            <li>🤖 Rapport IA Diagnocat (segmentation, pathologies, plan)</li>
+            <li>👨‍⚕️ Analyse Dr. Fromental (gold standard, audio, heatmap)</li>
+            <li>⚖️ Confrontation tripartite (grille FRAME, écarts, insights)</li>
+            <li>📋 Décision finale motivée (plan de traitement argumenté)</li>
           </ul>
         </div>
 
-        <div class="gold-box" style="text-align:left">
-          <strong>Conseil du Dr. Fromental :</strong> Travaillez le fenêtrage pour détecter les lésions résiduelles. C'est la clé pour passer de 76% à 85%.
+        <div style="margin-top:24px">
+          <h4 style="font-size:15px;font-weight:700;margin-bottom:12px">Axes d'amélioration</h4>
+          <ul class="axes-list">
+            <li>🔴 <strong>Détection lésions résiduelles</strong> — Pratiquez le fenêtrage W:1500/L:300</li>
+            <li>🟡 <strong>Analyse de la densité osseuse</strong> — Comparez avec l'os sain adjacent</li>
+            <li>🟢 <strong>Structures anatomiques</strong> — Continuez, votre détection est solide</li>
+          </ul>
+        </div>
+
+        <div class="gold-box">
+          <strong>Conseil du Dr. Fromental :</strong> Travaillez le fenêtrage pour détecter les lésions résiduelles. C'est la clé pour passer de 76% à 85%. Sur les 3 derniers cas, votre progression est notable — continuez.
         </div>
 
         <div class="result-actions">
+          <button class="btn-secondary" style="width:auto;padding:14px 32px"><span class="material-icons-outlined" style="font-size:18px">download</span> Télécharger le dossier FRAME (PDF)</button>
           <a href="cas-pratique.html" class="btn-primary" style="width:auto;padding:14px 32px">Nouveau cas pratique →</a>
-          <a href="profil.html" class="btn-secondary" style="width:auto;padding:14px 32px">Voir mon profil</a>
+        </div>
+        <div style="text-align:center;margin-top:12px">
+          <a href="profil.html" style="font-size:13px;color:#3b9ecc;font-weight:500">Voir mon profil</a>
         </div>
       </div>
     </div>
