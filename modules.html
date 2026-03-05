@@ -4,285 +4,178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FRAME — Modules</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --primary: #3b9ecc; --primary-light: #e8f4fa; --primary-lighter: #f0f8fc; --primary-dark: #2a7da6; --sidebar-bg: #1a2332; --sidebar-hover: #243044; --bg: #f5f7fa; --white: #ffffff; --text: #1a1a2e; --text-secondary: #6b7280; --border: #e5e7eb; --success: #22c55e; --warning: #f59e0b; --danger: #ef4444; --gold: #e8a838; }
-body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
-.sidebar { width: 64px; background: var(--sidebar-bg); display: flex; flex-direction: column; align-items: center; padding: 16px 0; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.05); }
-.sidebar-logo { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 28px; text-decoration: none; }
-.sidebar-nav { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 8px; }
-.sidebar-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.15s; position: relative; text-decoration: none; }
-.sidebar-item:hover { background: var(--sidebar-hover); color: rgba(255,255,255,0.8); }
-.sidebar-item.active { background: rgba(59,158,204,0.15); color: var(--primary); }
-.sidebar-item.active::before { content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--primary); border-radius: 0 3px 3px 0; }
-.sidebar-item .material-icons-outlined { font-size: 22px; }
-.sidebar-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding: 0 8px; }
-.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-.topbar { height: 56px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 28px; gap: 16px; flex-shrink: 0; }
-.topbar-breadcrumb { display: flex; align-items: center; gap: 8px; }
-.topbar-breadcrumb span { font-size: 13px; color: var(--text-secondary); }
-.topbar-breadcrumb .current { color: var(--text); font-weight: 600; }
-.topbar-breadcrumb .sep { color: #d1d5db; }
-.topbar-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--primary-light); color: var(--primary-dark); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
-.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-.topbar-search { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: 13px; width: 220px; color: var(--text); font-family: inherit; }
-.topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
-.topbar-notif { position: relative; color: var(--text-secondary); cursor: pointer; }
-.topbar-notif .dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; border: 2px solid var(--white); }
-.content { flex: 1; overflow-y: auto; padding: 28px; }
-.content::-webkit-scrollbar { width: 6px; }
-.content::-webkit-scrollbar-track { background: transparent; }
-.content::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-.page-header { margin-bottom: 24px; }
-.page-header h1 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.page-header p { font-size: 14px; color: var(--text-secondary); }
-.module-full { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; display: flex; gap: 20px; transition: all 0.15s; cursor: pointer; text-decoration: none; color: inherit; }
-.module-full:hover { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
-.module-full-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.module-full-icon.blue { background: var(--primary-light); color: var(--primary); }
-.module-full-icon.gold { background: #fef3c7; color: #d97706; }
-.module-full-icon.green { background: #dcfce7; color: #16a34a; }
-.module-full-icon.purple { background: #f3e8ff; color: #9333ea; }
-.module-full-icon.red { background: #fee2e2; color: #dc2626; }
-.module-full-icon.teal { background: #ccfbf1; color: #0d9488; }
-.module-full-icon.indigo { background: #e0e7ff; color: #4f46e5; }
-.module-full-icon .material-icons-outlined { font-size: 26px; }
-.module-full-body { flex: 1; }
-.module-full-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.module-full-top h3 { font-size: 16px; font-weight: 700; }
-.module-full-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
-.module-full-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
-.module-full-meta { display: flex; gap: 20px; margin-bottom: 12px; }
-.module-full-meta-item { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
-.module-full-meta-item .material-icons-outlined { font-size: 16px; }
-.module-progress { height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
-.module-progress-bar { height: 100%; background: var(--primary); border-radius: 2px; }
-.module-progress-label { font-size: 11px; color: var(--text-secondary); margin-top: 6px; }
-.badge-completed { background: #dcfce7; color: #166534; }
-.badge-progress { background: var(--primary-light); color: var(--primary-dark); }
-.badge-locked { background: #f3f4f6; color: #9ca3af; }
-.badge-certified { background: #fef3c7; color: #92400e; }
-.highlight-box { background: var(--primary-light); border: 1px solid rgba(59,158,204,0.2); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--primary-dark); margin-bottom: 20px; }
-.highlight-box .material-icons-outlined { font-size: 20px; }
+body { font-family: 'Inter', sans-serif; background: #f5f7fa; color: #1a1a2e; display: flex; min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+.sidebar { width: 64px; background: #1a2332; display: flex; flex-direction: column; align-items: center; padding: 16px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 20; }
+.sidebar-logo { width: 36px; height: 36px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; margin-bottom: 32px; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.sidebar-nav a { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #6b7280; transition: all .2s; }
+.sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(59,158,204,0.15); color: #3b9ecc; }
+.sidebar-bottom { display: flex; flex-direction: column; gap: 8px; }
+.sidebar-bottom a { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #6b7280; transition: all .2s; }
+.sidebar-bottom a:hover { color: #fff; }
+.main { margin-left: 64px; flex: 1; }
+.topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+.breadcrumb { font-size: 13px; color: #6b7280; }
+.breadcrumb strong { color: #1a1a2e; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.badge-certified { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+.badge-certified .material-icons-outlined { font-size: 14px; color: #e8a838; }
+.search-box { background: #f5f7fa; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 12px; font-size: 13px; width: 200px; font-family: inherit; }
+.avatar { width: 32px; height: 32px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; }
+.content { padding: 32px; max-width: 1200px; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+.card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.card > p { color: #6b7280; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+.progress-bar { height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 5px; }
+.progress-fill.primary { background: #3b9ecc; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #6b7280; margin-top: 6px; }
+
+.module-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+.module-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; }
+.module-num.completed { background: #22c55e; }
+.module-num.in-progress { background: #3b9ecc; }
+.module-num.locked { background: #d1d5db; }
+.module-info { flex: 1; }
+.module-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.module-info .desc { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
+.module-info .progress-bar { height: 6px; }
+.module-badge { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+.module-badge.completed { background: #f0fdf4; color: #16a34a; }
+.module-badge.in-progress { background: #eff6ff; color: #2563eb; }
+.module-badge.locked { background: #f3f4f6; color: #9ca3af; }
+
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .search-box { display: none; }
+}
+@media (max-width: 640px) {
+  .content { padding: 16px; }
+  .module-card { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <a href="dashboard.html" class="sidebar-logo">F</a>
+<nav class="sidebar">
+  <div class="sidebar-logo">F</div>
   <div class="sidebar-nav">
-    <a href="dashboard.html" class="sidebar-item"><span class="material-icons-outlined">home</span></a>
-    <a href="modules.html" class="sidebar-item active"><span class="material-icons-outlined">school</span></a>
-    <a href="cas-clinique.html" class="sidebar-item"><span class="material-icons-outlined">biotech</span></a>
-    <a href="confrontation.html" class="sidebar-item"><span class="material-icons-outlined">compare</span></a>
-    <a href="scoring.html" class="sidebar-item"><span class="material-icons-outlined">analytics</span></a>
-    <a href="implants.html" class="sidebar-item"><span class="material-icons-outlined">inventory_2</span></a>
-    <a href="traitement.html" class="sidebar-item"><span class="material-icons-outlined">medical_services</span></a>
+    <a href="index.html"><span class="material-icons-outlined">home</span></a>
+    <a href="cas-pratique.html"><span class="material-icons-outlined">biotech</span></a>
+    <a href="modules.html" class="active"><span class="material-icons-outlined">school</span></a>
+    <a href="profil.html"><span class="material-icons-outlined">person</span></a>
   </div>
   <div class="sidebar-bottom">
-    <a href="profil.html" class="sidebar-item"><span class="material-icons-outlined">settings</span></a>
-    <a href="#" class="sidebar-item"><span class="material-icons-outlined">help_outline</span></a>
+    <a href="#"><span class="material-icons-outlined">settings</span></a>
+    <a href="#"><span class="material-icons-outlined">help_outline</span></a>
   </div>
-</div>
+</nav>
 
 <div class="main">
   <div class="topbar">
-    <div class="topbar-breadcrumb">
-      <span>FRAME</span><span class="sep">/</span><span class="current">Modules</span>
-    </div>
-    <span class="topbar-badge"><span class="material-icons-outlined" style="font-size:14px;">verified</span> Certifié Dr. Fromental</span>
+    <div class="breadcrumb">FRAME / <strong>Modules</strong></div>
     <div class="topbar-right">
-      <input class="topbar-search" placeholder="Rechercher un module, un cas..." />
-      <div class="topbar-notif"><span class="material-icons-outlined">notifications_none</span><div class="dot"></div></div>
-      <a href="profil.html" class="topbar-avatar">JF</a>
+      <div class="badge-certified"><span class="material-icons-outlined">workspace_premium</span> Certifié Dr. Fromental</div>
+      <input type="text" class="search-box" placeholder="Rechercher…">
+      <div class="avatar">JF</div>
     </div>
   </div>
 
   <div class="content">
-    <div class="page-header">
-      <h1>Modules du programme FRAME</h1>
-      <p>9 modules progressifs — De l'acquisition CBCT à la certification Dr. Fromental</p>
+    <div class="card">
+      <h2>Programme de formation FRAME</h2>
+      <p>9 modules progressifs pour maîtriser l'implantologie assistée par IA. Chaque module contient des cours théoriques, des exercices pratiques et des évaluations certifiées par le Dr. Fromental.</p>
+      <div class="progress-bar"><div class="progress-fill primary" style="width:56%"></div></div>
+      <div class="progress-label"><span>Progression globale</span><span>56% (5/9 modules)</span></div>
     </div>
 
-    <div class="highlight-box">
-      <span class="material-icons-outlined">school</span>
-      Parcours structuré : chaque module débloque le suivant. Complétez les 9 pour obtenir la certification.
+    <div class="module-card">
+      <div class="module-num completed">1</div>
+      <div class="module-info">
+        <h4>Acquisition CBCT</h4>
+        <div class="desc">Upload et anonymisation</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div>
+      </div>
+      <span class="module-badge completed">Complété</span>
     </div>
-
-    <!-- Module 01 -->
-    <a href="cas-clinique.html" class="module-full">
-      <div class="module-full-icon blue"><span class="material-icons-outlined">upload_file</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>01 — Acquisition CBCT</h3>
-          <span class="module-full-badge badge-completed">Complété</span>
-        </div>
-        <div class="module-full-desc">Upload de fichiers DICOM, vérification automatique de la qualité d'image, anonymisation des données patient via pydicom. Gestion des métadonnées et conformité RGPD.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 12 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~2h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock_open</span> Aucun prérequis</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:100%"></div></div>
-        <div class="module-progress-label">100% — Terminé</div>
+    <div class="module-card">
+      <div class="module-num completed">2</div>
+      <div class="module-info">
+        <h4>Viewer DICOM/STL</h4>
+        <div class="desc">Navigation 3D</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div>
       </div>
-    </a>
-
-    <!-- Module 02 -->
-    <a href="cas-clinique.html" class="module-full">
-      <div class="module-full-icon blue"><span class="material-icons-outlined">visibility</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>02 — Viewer DICOM/STL</h3>
-          <span class="module-full-badge badge-completed">Complété</span>
-        </div>
-        <div class="module-full-desc">Navigation 3D dans les coupes CBCT avec OHIF Viewer v3. Visualisation panoramique, coupes axiales/coronales/sagittales, rendu volumique et superposition de modèles STL.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 15 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~3h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 01</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:100%"></div></div>
-        <div class="module-progress-label">100% — Terminé</div>
+      <span class="module-badge completed">Complété</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num in-progress">3</div>
+      <div class="module-info">
+        <h4>Annotation &amp; Mesure</h4>
+        <div class="desc">Contours et distances</div>
+        <div class="progress-bar"><div class="progress-fill primary" style="width:65%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 03 -->
-    <a href="cas-clinique.html" class="module-full">
-      <div class="module-full-icon green"><span class="material-icons-outlined">draw</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>03 — Annotation & Mesure</h3>
-          <span class="module-full-badge badge-progress">En cours</span>
-        </div>
-        <div class="module-full-desc">Tracé de contours anatomiques, placement de points de repère, mesure de distances et angles sur coupes 3D. Outils de segmentation manuelle et semi-automatique.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 18 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~4h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 02</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:65%"></div></div>
-        <div class="module-progress-label">65% — 4 exercices restants</div>
+      <span class="module-badge in-progress">En cours</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num in-progress">4</div>
+      <div class="module-info">
+        <h4>Gateway IA</h4>
+        <div class="desc">Intégration Diagnocat, Romexis, CephX</div>
+        <div class="progress-bar"><div class="progress-fill primary" style="width:30%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 04 -->
-    <a href="cas-clinique.html" class="module-full">
-      <div class="module-full-icon purple"><span class="material-icons-outlined">psychology</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>04 — Gateway IA</h3>
-          <span class="module-full-badge badge-progress">En cours</span>
-        </div>
-        <div class="module-full-desc">Intégration multi-moteurs IA : Diagnocat (détection automatique), Romexis (planification implantaire), CephX (céphalométrie). Comparaison des résultats IA et calibration.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 10 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~3h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 03</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:30%"></div></div>
-        <div class="module-progress-label">30% — Module débloqué</div>
+      <span class="module-badge in-progress">En cours</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num in-progress">5</div>
+      <div class="module-info">
+        <h4>Confrontation</h4>
+        <div class="desc">Triple analyse comparative</div>
+        <div class="progress-bar"><div class="progress-fill primary" style="width:45%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 05 -->
-    <a href="confrontation.html" class="module-full">
-      <div class="module-full-icon gold"><span class="material-icons-outlined">compare_arrows</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>05 — Confrontation</h3>
-          <span class="module-full-badge badge-certified">★ Certifié</span>
-        </div>
-        <div class="module-full-desc">Vue 3 colonnes comparative : votre analyse vs gold standard Dr. Fromental vs IA Diagnocat. Identification des écarts, heatmap de parcours visuel, feedback personnalisé.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 20 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~6h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 04</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:45%"></div></div>
-        <div class="module-progress-label">45% — Le cœur du programme</div>
+      <span class="module-badge in-progress">En cours</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num locked">6</div>
+      <div class="module-info">
+        <h4>Plan de traitement</h4>
+        <div class="desc">3 chemins thérapeutiques</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 06 -->
-    <a href="scoring.html" class="module-full">
-      <div class="module-full-icon teal"><span class="material-icons-outlined">trending_up</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>06 — Scoring & Progression</h3>
-          <span class="module-full-badge badge-progress">En cours</span>
-        </div>
-        <div class="module-full-desc">Calcul de concordance Fromental, Dice score pour la segmentation, suivi de progression temporelle. Dashboard de performance et comparaison avec la cohorte.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 8 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~2h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 05</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:20%"></div></div>
-        <div class="module-progress-label">20% — En progression</div>
+      <span class="module-badge locked">Verrouillé</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num locked">7</div>
+      <div class="module-info">
+        <h4>Implants &amp; Matériaux</h4>
+        <div class="desc">Catalogue et compatibilité</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 07 -->
-    <a href="#" class="module-full">
-      <div class="module-full-icon indigo"><span class="material-icons-outlined">library_books</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>07 — Base pédagogique</h3>
-          <span class="module-full-badge badge-locked">Verrouillé</span>
-        </div>
-        <div class="module-full-desc">Bibliothèque de cas maîtres annotés par le Dr. Fromental. Parcours thématiques (sinus lift, crête étroite, secteur esthétique), fiches de révision et quiz interactifs.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 30 cas maîtres</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~8h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 06</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:0%"></div></div>
-        <div class="module-progress-label">Prérequis : Module 06</div>
+      <span class="module-badge locked">Verrouillé</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num locked">8</div>
+      <div class="module-info">
+        <h4>Cas complexes</h4>
+        <div class="desc">Atrophie sévère, full arch</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 08 -->
-    <a href="traitement.html" class="module-full">
-      <div class="module-full-icon red"><span class="material-icons-outlined">medical_services</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>08 — Plan de traitement</h3>
-          <span class="module-full-badge badge-locked">Verrouillé</span>
-        </div>
-        <div class="module-full-desc">Élaboration de 3 chemins thérapeutiques (Premium, Modéré, Économique). Sélection d'implants adaptés, simulation de placement, génération de devis comparatifs.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 14 cas</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~5h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 07</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:0%"></div></div>
-        <div class="module-progress-label">Prérequis : Module 07</div>
+      <span class="module-badge locked">Verrouillé</span>
+    </div>
+    <div class="module-card">
+      <div class="module-num locked">9</div>
+      <div class="module-info">
+        <h4>Certification finale</h4>
+        <div class="desc">Examen Dr. Fromental</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       </div>
-    </a>
-
-    <!-- Module 09 -->
-    <a href="#" class="module-full">
-      <div class="module-full-icon green"><span class="material-icons-outlined">picture_as_pdf</span></div>
-      <div class="module-full-body">
-        <div class="module-full-top">
-          <h3>09 — Export & Certificats</h3>
-          <span class="module-full-badge badge-locked">Verrouillé</span>
-        </div>
-        <div class="module-full-desc">Génération de rapports PDF FRAME (diagnostic + plan de traitement), export STL pour guides chirurgicaux, export CSV pour recherche clinique. Certificat de complétion Dr. Fromental.</div>
-        <div class="module-full-meta">
-          <div class="module-full-meta-item"><span class="material-icons-outlined">folder</span> 5 cas finaux</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">schedule</span> ~2h estimées</div>
-          <div class="module-full-meta-item"><span class="material-icons-outlined">lock</span> Module 08</div>
-        </div>
-        <div class="module-progress"><div class="module-progress-bar" style="width:0%"></div></div>
-        <div class="module-progress-label">Prérequis : Module 08</div>
-      </div>
-    </a>
-
-    <div style="height:40px;"></div>
+      <span class="module-badge locked">Verrouillé</span>
+    </div>
   </div>
 </div>
 
