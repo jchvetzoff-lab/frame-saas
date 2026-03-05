@@ -10,15 +10,27 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: #f5f7fa; color: #1a1a2e; display: flex; min-height: 100vh; }
 a { text-decoration: none; color: inherit; }
-.sidebar { width: 64px; background: #1a2332; display: flex; flex-direction: column; align-items: center; padding: 16px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 20; }
-.sidebar-logo { width: 36px; height: 36px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; margin-bottom: 32px; }
-.sidebar-nav { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.sidebar-nav a { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #6b7280; transition: all .2s; }
-.sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(59,158,204,0.15); color: #3b9ecc; }
-.sidebar-bottom { display: flex; flex-direction: column; gap: 8px; }
-.sidebar-bottom a { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #6b7280; transition: all .2s; }
-.sidebar-bottom a:hover { color: #fff; }
-.main { margin-left: 64px; flex: 1; }
+/* Sidebar expand on hover */
+.sidebar { width: 64px; background: #1a2332; display: flex; flex-direction: column; align-items: flex-start; padding: 16px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 20; transition: width 0.25s ease; overflow: hidden; }
+.sidebar:hover { width: 220px; }
+.sidebar-logo { width: 36px; height: 36px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; margin: 0 auto 32px; flex-shrink: 0; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; width: 100%; padding: 0 10px; }
+.nav-item { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 10px; border-radius: 10px; color: #6b7280; transition: all 0.2s; white-space: nowrap; cursor: pointer; text-decoration: none; }
+.nav-item:hover { background: rgba(59,158,204,0.15); color: #3b9ecc; }
+.nav-item.active { background: rgba(59,158,204,0.15); color: #3b9ecc; }
+.nav-label { font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.15s ease; }
+.sidebar:hover .nav-label { opacity: 1; }
+.nav-arrow { margin-left: auto; font-size: 18px !important; opacity: 0; transition: opacity 0.15s ease, transform 0.2s ease; }
+.sidebar:hover .nav-arrow { opacity: 1; }
+.nav-group.open .nav-arrow { transform: rotate(180deg); }
+.nav-group { position: relative; }
+.nav-sub { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-left: 20px; }
+.nav-group.open .nav-sub { max-height: 300px; }
+.nav-sub-item { display: block; padding: 8px 10px 8px 36px; font-size: 12px; color: #6b7280; border-radius: 8px; transition: all 0.15s; white-space: nowrap; opacity: 0; text-decoration: none; }
+.sidebar:hover .nav-sub-item { opacity: 1; }
+.nav-sub-item:hover { color: #3b9ecc; background: rgba(59,158,204,0.08); }
+.sidebar-bottom { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 10px; }
+.main { margin-left: 64px; transition: margin-left 0.25s ease; flex: 1; }
 .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
 .breadcrumb { font-size: 13px; color: #6b7280; }
 .breadcrumb strong { color: #1a1a2e; }
@@ -66,14 +78,42 @@ a { text-decoration: none; color: inherit; }
 <nav class="sidebar">
   <div class="sidebar-logo">F</div>
   <div class="sidebar-nav">
-    <a href="index.html"><span class="material-icons-outlined">home</span></a>
-    <a href="cas-pratique.html"><span class="material-icons-outlined">biotech</span></a>
-    <a href="modules.html" class="active"><span class="material-icons-outlined">school</span></a>
-    <a href="profil.html"><span class="material-icons-outlined">person</span></a>
+    <a href="index.html" class="nav-item">
+      <span class="material-icons-outlined">home</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <div class="nav-group">
+      <a href="cas-pratique.html" class="nav-item">
+        <span class="material-icons-outlined">biotech</span>
+        <span class="nav-label">Cas Pratique</span>
+        <span class="material-icons-outlined nav-arrow">expand_more</span>
+      </a>
+      <div class="nav-sub">
+        <a href="cas-pratique.html#comprendre" class="nav-sub-item">Comprendre</a>
+        <a href="cas-pratique.html#importer" class="nav-sub-item">Importer</a>
+        <a href="cas-pratique.html#analyser" class="nav-sub-item">Analyser</a>
+        <a href="cas-pratique.html#confronter" class="nav-sub-item">Confronter</a>
+        <a href="cas-pratique.html#decider" class="nav-sub-item">Décider</a>
+      </div>
+    </div>
+    <a href="modules.html" class="nav-item active">
+      <span class="material-icons-outlined">school</span>
+      <span class="nav-label">Modules</span>
+    </a>
+    <a href="profil.html" class="nav-item">
+      <span class="material-icons-outlined">person</span>
+      <span class="nav-label">Profil</span>
+    </a>
   </div>
   <div class="sidebar-bottom">
-    <a href="#"><span class="material-icons-outlined">settings</span></a>
-    <a href="#"><span class="material-icons-outlined">help_outline</span></a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-outlined">settings</span>
+      <span class="nav-label">Réglages</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-outlined">help_outline</span>
+      <span class="nav-label">Aide</span>
+    </a>
   </div>
 </nav>
 
@@ -179,5 +219,18 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+
+<script>
+document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    var group = this.closest('.nav-group');
+    if (group) { group.classList.toggle('open'); }
+  });
+});
+if (window.location.pathname.includes('cas-pratique')) {
+  var group = document.querySelector('.nav-group');
+  if (group) group.classList.add('open');
+}
+</script>
 </body>
 </html>
