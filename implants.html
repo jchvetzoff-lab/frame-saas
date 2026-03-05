@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRAME — Catalogue Implants</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --primary: #3b9ecc; --primary-light: #e8f4fa; --primary-dark: #2a7da6; --sidebar-bg: #1a2332; --sidebar-hover: #243044; --bg: #f5f7fa; --white: #ffffff; --text: #1a1a2e; --text-secondary: #6b7280; --border: #e5e7eb; --success: #22c55e; --warning: #f59e0b; --danger: #ef4444; --gold: #e8a838; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+.sidebar { width: 64px; background: var(--sidebar-bg); display: flex; flex-direction: column; align-items: center; padding: 16px 0; flex-shrink: 0; }
+.sidebar-logo { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 28px; text-decoration: none; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 8px; }
+.sidebar-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: rgba(255,255,255,0.4); transition: all 0.15s; position: relative; text-decoration: none; }
+.sidebar-item:hover { background: var(--sidebar-hover); color: rgba(255,255,255,0.8); }
+.sidebar-item.active { background: rgba(59,158,204,0.15); color: var(--primary); }
+.sidebar-item.active::before { content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--primary); border-radius: 0 3px 3px 0; }
+.sidebar-item .material-icons-outlined { font-size: 22px; }
+.sidebar-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding: 0 8px; }
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { height: 56px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 28px; gap: 16px; flex-shrink: 0; }
+.topbar-breadcrumb { display: flex; align-items: center; gap: 8px; }
+.topbar-breadcrumb span { font-size: 13px; color: var(--text-secondary); }
+.topbar-breadcrumb .current { color: var(--text); font-weight: 600; }
+.topbar-breadcrumb .sep { color: #d1d5db; }
+.topbar-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--primary-light); color: var(--primary-dark); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.topbar-search { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: 13px; width: 220px; color: var(--text); font-family: inherit; }
+.topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
+.topbar-notif { position: relative; color: var(--text-secondary); }
+.topbar-notif .dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; border: 2px solid var(--white); }
+.content { flex: 1; overflow-y: auto; padding: 28px; }
+.content::-webkit-scrollbar { width: 6px; }
+.content::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+.page-header { margin-bottom: 24px; }
+.page-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.page-header p { font-size: 14px; color: var(--text-secondary); }
+.filters-bar { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.filter-select { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-family: inherit; color: var(--text); min-width: 140px; }
+.filter-label { font-size: 11px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.implants-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.implant-card-full { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.15s; cursor: pointer; }
+.implant-card-full:hover { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+.implant-card-full.sponsored { border-color: var(--gold); }
+.implant-img-lg { width: 100%; height: 120px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 36px; }
+.implant-img-lg.spons-bg { background: #fffdf5; }
+.implant-card-body { padding: 16px; }
+.implant-card-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.implant-card-body .brand { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.implant-card-body .specs { font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; }
+.implant-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.implant-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.implant-tag { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 4px; }
+.implant-tag.certified { background: var(--primary-light); color: var(--primary-dark); }
+.implant-tag.sponsored-tag { background: #fef3c7; color: #92400e; }
+.implant-tag.compat { background: #dcfce7; color: #166534; }
+.implant-price-val { font-size: 18px; font-weight: 700; }
+.implant-price-unit { font-size: 10px; color: var(--text-secondary); }
+.btn-sm { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text); font-family: inherit; transition: all 0.15s; margin-top: 10px; display: inline-flex; align-items: center; gap: 4px; }
+.btn-sm:hover { border-color: var(--primary); color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="dashboard.html" class="sidebar-logo">F</a>
+  <div class="sidebar-nav">
+    <a href="dashboard.html" class="sidebar-item"><span class="material-icons-outlined">home</span></a>
+    <a href="modules.html" class="sidebar-item"><span class="material-icons-outlined">school</span></a>
+    <a href="cas-clinique.html" class="sidebar-item"><span class="material-icons-outlined">biotech</span></a>
+    <a href="confrontation.html" class="sidebar-item"><span class="material-icons-outlined">compare</span></a>
+    <a href="scoring.html" class="sidebar-item"><span class="material-icons-outlined">analytics</span></a>
+    <a href="implants.html" class="sidebar-item active"><span class="material-icons-outlined">inventory_2</span></a>
+    <a href="traitement.html" class="sidebar-item"><span class="material-icons-outlined">medical_services</span></a>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="profil.html" class="sidebar-item"><span class="material-icons-outlined">settings</span></a>
+    <a href="#" class="sidebar-item"><span class="material-icons-outlined">help_outline</span></a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">
+      <span>FRAME</span><span class="sep">/</span><span class="current">Catalogue Implants</span>
+    </div>
+    <span class="topbar-badge"><span class="material-icons-outlined" style="font-size:14px;">verified</span> Certifié Dr. Fromental</span>
+    <div class="topbar-right">
+      <input class="topbar-search" placeholder="Rechercher un implant..." />
+      <div class="topbar-notif"><span class="material-icons-outlined">notifications_none</span><div class="dot"></div></div>
+      <a href="profil.html" class="topbar-avatar">JF</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <h1>Catalogue d'implants</h1>
+      <p>Marketplace FRAME — Implants certifiés et partenaires</p>
+    </div>
+
+    <div class="filters-bar">
+      <div><div class="filter-label">Marque</div><select class="filter-select"><option>Toutes les marques</option><option>Straumann</option><option>Nobel Biocare</option><option>BioHorizons</option><option>Osstem</option><option>Zimmer</option><option>Dentsply</option></select></div>
+      <div><div class="filter-label">Diamètre</div><select class="filter-select"><option>Tous diamètres</option><option>3.3 mm</option><option>3.75 mm</option><option>4.0 mm</option><option>4.2 mm</option><option>4.8 mm</option><option>5.0 mm</option></select></div>
+      <div><div class="filter-label">Longueur</div><select class="filter-select"><option>Toutes longueurs</option><option>6 mm</option><option>8 mm</option><option>10 mm</option><option>11.5 mm</option><option>13 mm</option></select></div>
+      <div><div class="filter-label">Prix</div><select class="filter-select"><option>Tous prix</option><option>< 100 €</option><option>100-200 €</option><option>200-300 €</option><option>> 300 €</option></select></div>
+      <div><div class="filter-label">Compatibilité</div><select class="filter-select"><option>Tous</option><option>Compatible cas actuel</option><option>Certifié FRAME</option></select></div>
+    </div>
+
+    <div class="implants-grid">
+      <!-- 1 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Straumann BLX</h3>
+          <div class="brand">Straumann</div>
+          <div class="specs">Ø 4.0mm × 12mm • Titane Grade 4 • Surface SLActive®</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">245 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="implant-card-full sponsored">
+        <div class="implant-img-lg spons-bg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Nobel Biocare Active</h3>
+          <div class="brand">Nobel Biocare</div>
+          <div class="specs">Ø 4.3mm × 11.5mm • Titane Grade 4 • Surface TiUnite</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag sponsored-tag">★ Sponsorisé</span></div>
+            <div><div class="implant-price-val">210 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>BioHorizon Tapered Internal</h3>
+          <div class="brand">BioHorizons</div>
+          <div class="specs">Ø 4.2mm × 11.5mm • Titane • Surface Laser-Lok®</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">189 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="implant-card-full sponsored">
+        <div class="implant-img-lg spons-bg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Osstem TS IV SA</h3>
+          <div class="brand">Osstem</div>
+          <div class="specs">Ø 4.0mm × 11.5mm • Titane Grade 4 • Surface SA</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag sponsored-tag">★ Sponsorisé</span></div>
+            <div><div class="implant-price-val">95 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Zimmer TSV</h3>
+          <div class="brand">Zimmer Biomet</div>
+          <div class="specs">Ø 4.1mm × 13mm • Titane • Surface MTX®</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">178 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Dentsply Astra Tech EV</h3>
+          <div class="brand">Dentsply Sirona</div>
+          <div class="specs">Ø 4.2mm × 11mm • Titane Grade 4 • Surface OsseoSpeed</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">220 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="implant-card-full sponsored">
+        <div class="implant-img-lg spons-bg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Straumann BLT</h3>
+          <div class="brand">Straumann</div>
+          <div class="specs">Ø 3.3mm × 10mm • Titane-Zircone • Surface Roxolid® SLActive</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag sponsored-tag">★ Sponsorisé</span></div>
+            <div><div class="implant-price-val">275 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Nobel Biocare CC</h3>
+          <div class="brand">Nobel Biocare</div>
+          <div class="specs">Ø 4.0mm × 8mm • Implant court • Surface TiUnite</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag compat">Compatible</span><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">195 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 9 -->
+      <div class="implant-card-full">
+        <div class="implant-img-lg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>BioHorizons Conical</h3>
+          <div class="brand">BioHorizons</div>
+          <div class="specs">Ø 4.6mm × 10.5mm • Titane • Surface Laser-Lok®</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag certified">Certifié FRAME</span></div>
+            <div><div class="implant-price-val">175 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+      <!-- 10 -->
+      <div class="implant-card-full sponsored">
+        <div class="implant-img-lg spons-bg"><span class="material-icons-outlined">precision_manufacturing</span></div>
+        <div class="implant-card-body">
+          <h3>Osstem MS Mini</h3>
+          <div class="brand">Osstem</div>
+          <div class="specs">Ø 3.0mm × 13mm • Mini implant • Surface HA</div>
+          <div class="implant-card-footer">
+            <div class="implant-tags"><span class="implant-tag sponsored-tag">★ Sponsorisé</span></div>
+            <div><div class="implant-price-val">65 €</div><div class="implant-price-unit">/ unité</div></div>
+          </div>
+          <button class="btn-sm"><span class="material-icons-outlined" style="font-size:14px;">visibility</span> Voir détails</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:40px;"></div>
+  </div>
+</div>
+
+</body>
+</html>

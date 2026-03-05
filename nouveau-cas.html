@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRAME — Nouveau cas clinique</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #3b9ecc; --primary-light: #e8f4fa;
+  --primary-dark: #2a7da6; --sidebar-bg: #1a2332; --sidebar-hover: #243044;
+  --bg: #f5f7fa; --white: #ffffff; --text: #1a1a2e; --text-secondary: #6b7280;
+  --border: #e5e7eb; --success: #22c55e; --warning: #f59e0b; --danger: #ef4444; --gold: #e8a838; --purple: #9333ea;
+}
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+.sidebar { width: 64px; background: var(--sidebar-bg); display: flex; flex-direction: column; align-items: center; padding: 16px 0; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.05); }
+.sidebar-logo { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 28px; letter-spacing: -0.5px; text-decoration: none; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 8px; }
+.sidebar-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.15s; position: relative; text-decoration: none; }
+.sidebar-item:hover { background: var(--sidebar-hover); color: rgba(255,255,255,0.8); }
+.sidebar-item.active { background: rgba(59,158,204,0.15); color: var(--primary); }
+.sidebar-item.active::before { content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--primary); border-radius: 0 3px 3px 0; }
+.sidebar-item .material-icons-outlined { font-size: 22px; }
+.sidebar-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding: 0 8px; }
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { height: 56px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 28px; gap: 16px; flex-shrink: 0; }
+.topbar-breadcrumb { display: flex; align-items: center; gap: 8px; }
+.topbar-breadcrumb span { font-size: 13px; color: var(--text-secondary); }
+.topbar-breadcrumb .current { color: var(--text); font-weight: 600; }
+.topbar-breadcrumb .sep { color: #d1d5db; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
+.topbar-notif { position: relative; color: var(--text-secondary); cursor: pointer; }
+.topbar-notif .dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; border: 2px solid var(--white); }
+.content { flex: 1; overflow-y: auto; padding: 28px; }
+.content::-webkit-scrollbar { width: 6px; }
+.content::-webkit-scrollbar-track { background: transparent; }
+.content::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+.form-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.form-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.form-card h3 .material-icons-outlined { font-size: 20px; color: var(--primary); }
+
+.dropzone { height: 180px; border: 2px dashed #d1d5db; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; transition: border-color 0.15s; }
+.dropzone:hover { border-color: var(--primary); }
+.dropzone .material-icons-outlined { font-size: 48px; color: #d1d5db; margin-bottom: 8px; }
+.dropzone-main { font-size: 14px; font-weight: 500; color: var(--text); }
+.dropzone-link { font-size: 12px; color: var(--primary); cursor: pointer; margin-top: 4px; }
+.dropzone-info { font-size: 11px; color: var(--text-secondary); margin-top: 8px; }
+
+.progress-bar-container { height: 8px; background: #e5e7eb; border-radius: 4px; margin-top: 16px; overflow: hidden; }
+.progress-bar-inner { height: 100%; width: 67%; background: var(--primary); border-radius: 4px; }
+.progress-text { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.form-group select,
+.form-group input { height: 40px; border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text); background: var(--white); }
+.form-group textarea { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text); resize: none; height: 80px; }
+.form-group textarea::placeholder { color: #9ca3af; }
+
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-label { font-size: 13px; font-weight: 500; }
+.toggle-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+
+.btn-submit { width: 100%; padding: 14px; background: var(--primary); color: #fff; border-radius: 10px; font-size: 15px; font-weight: 600; margin-top: 20px; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: background 0.15s; }
+.btn-submit:hover { background: var(--primary-dark); }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="dashboard.html" class="sidebar-logo">F</a>
+  <div class="sidebar-nav">
+    <a href="dashboard.html" class="sidebar-item"><span class="material-icons-outlined">home</span></a>
+    <a href="nouveau-cas.html" class="sidebar-item active"><span class="material-icons-outlined">add_circle</span></a>
+    <a href="modules.html" class="sidebar-item"><span class="material-icons-outlined">school</span></a>
+    <a href="cas-clinique.html" class="sidebar-item"><span class="material-icons-outlined">biotech</span></a>
+    <a href="confrontation.html" class="sidebar-item"><span class="material-icons-outlined">compare</span></a>
+    <a href="scoring.html" class="sidebar-item"><span class="material-icons-outlined">analytics</span></a>
+    <a href="implants.html" class="sidebar-item"><span class="material-icons-outlined">inventory_2</span></a>
+    <a href="traitement.html" class="sidebar-item"><span class="material-icons-outlined">medical_services</span></a>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="profil.html" class="sidebar-item"><span class="material-icons-outlined">settings</span></a>
+    <a href="#" class="sidebar-item"><span class="material-icons-outlined">help_outline</span></a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">
+      <span>FRAME</span><span class="sep">/</span><span class="current">Nouveau cas</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-notif"><span class="material-icons-outlined">notifications_none</span><div class="dot"></div></div>
+      <a href="profil.html" class="topbar-avatar">JF</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Section 1 — Import CBCT -->
+    <div class="form-card">
+      <h3><span class="material-icons-outlined">cloud_upload</span> Import du fichier CBCT</h3>
+      <div class="dropzone">
+        <span class="material-icons-outlined">cloud_upload</span>
+        <div class="dropzone-main">Glissez votre fichier CBCT/DICOM ici</div>
+        <div class="dropzone-link">ou cliquez pour parcourir</div>
+        <div class="dropzone-info">Formats : DICOM, STL, OBJ — Max 500 Mo</div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-inner"></div>
+      </div>
+      <div class="progress-text">patient_anonyme_017.dcm — 67% (234 Mo / 350 Mo)</div>
+    </div>
+
+    <!-- Section 2 — Informations cliniques -->
+    <div class="form-card">
+      <h3><span class="material-icons-outlined">assignment</span> Informations cliniques</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Type d'édentement</label>
+          <select>
+            <option>Unitaire</option>
+            <option selected>Plurale</option>
+            <option>Totale</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Objectif pédagogique</label>
+          <select>
+            <option>Diagnostic seul</option>
+            <option>Planification implantaire</option>
+            <option selected>Confrontation complète</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Secteur dentaire</label>
+          <select>
+            <option>11-17</option>
+            <option>21-27</option>
+            <option selected>31-37</option>
+            <option>41-47</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Niveau de difficulté</label>
+          <select>
+            <option>Débutant</option>
+            <option selected>Intermédiaire</option>
+            <option>Avancé</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Contexte clinique</label>
+          <textarea placeholder="Patient de 52 ans, extraction 36-37 il y a 8 mois. Souhaite une solution fixe..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3 — Paramètres -->
+    <div class="form-card">
+      <h3><span class="material-icons-outlined">tune</span> Paramètres de confrontation</h3>
+      <div class="toggle-row">
+        <span class="toggle-label">Activer l'analyse IA (Diagnocat)</span>
+        <input type="checkbox" checked>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Inclure le raisonnement Dr. Fromental</span>
+        <input type="checkbox" checked>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Mode examen chronométré</span>
+        <input type="checkbox" checked>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Partager avec ma promotion</span>
+        <input type="checkbox">
+      </div>
+      <button class="btn-submit">Lancer l'analyse →</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
