@@ -1189,6 +1189,7 @@ table.validation td.status-bad { color: #ef4444; font-weight: 600; }
 </div>
 
 <script>
+// Sidebar toggle
 document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
   item.addEventListener('click', function(e) {
     e.preventDefault();
@@ -1196,6 +1197,65 @@ document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
     if (group) { group.classList.toggle('open'); }
   });
 });
+
+// Scroll-based active sub-item highlighting
+(function() {
+  var sections = ['acquerir','analyser','augmenter','confronter','decider','tracer'];
+  var subItems = document.querySelectorAll('.nav-sub .nav-sub-item');
+  // Map: hash -> sub-item (skip first which is "Présentation")
+  var hashMap = {};
+  subItems.forEach(function(el) {
+    var href = el.getAttribute('href') || '';
+    var hash = href.split('#')[1];
+    if (hash) hashMap[hash] = el;
+  });
+
+  function updateActive() {
+    var scrollY = window.scrollY + 160; // offset for sticky stepper+topbar
+    var current = null;
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) current = id;
+    });
+    subItems.forEach(function(el) { el.classList.remove('active'); });
+    if (current && hashMap[current]) {
+      hashMap[current].classList.add('active');
+    }
+  }
+
+  // Also update stepper dots based on scroll
+  var stepDots = document.querySelectorAll('.step-dot');
+  var stepLabels = document.querySelectorAll('.step-label');
+  function updateStepper() {
+    var scrollY = window.scrollY + 160;
+    var currentIdx = 0;
+    sections.forEach(function(id, i) {
+      var el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) currentIdx = i;
+    });
+    stepDots.forEach(function(dot, i) {
+      dot.classList.remove('active','done');
+      stepLabels[i].classList.remove('active','done');
+      stepLabels[i].style.color = '';
+      if (i < currentIdx) {
+        dot.classList.add('done');
+        dot.textContent = '✓';
+        stepLabels[i].classList.add('done');
+      } else if (i === currentIdx) {
+        dot.classList.add('active');
+        dot.textContent = String(i + 1);
+        stepLabels[i].classList.add('active');
+      } else {
+        dot.textContent = String(i + 1);
+        stepLabels[i].style.color = '#d1d5db';
+      }
+    });
+  }
+
+  window.addEventListener('scroll', function() { updateActive(); updateStepper(); }, { passive: true });
+  updateActive();
+  updateStepper();
+})();
 </script>
 </body>
 </html>
