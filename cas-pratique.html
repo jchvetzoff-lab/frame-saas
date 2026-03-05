@@ -53,13 +53,13 @@ a { text-decoration: none; color: inherit; }
 .step-label.active { color: #3b9ecc; font-weight: 600; }
 .step-arrow { margin: 0 12px; color: #d1d5db; font-size: 16px; }
 
-.content { padding: 32px; max-width: 1200px; }
+.content { padding: 32px; max-width: 1200px; margin: 0 auto; }
 .section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid #e5e7eb; }
 .section:last-child { border-bottom: none; }
 .section h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
 .section .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 20px; }
 .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-.btn-primary { background: #3b9ecc; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; width: 100%; justify-content: center; }
+.btn-primary { background: #3b9ecc; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; width: 100%; justify-content: center; text-decoration: none; }
 .btn-primary:hover { background: #2d8ab8; }
 
 /* Section 1 — Comprendre */
@@ -94,138 +94,18 @@ a { text-decoration: none; color: inherit; }
 .params { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 13px; margin-bottom: 16px; }
 .params label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
 
-/* Section 3 — Analyser */
-.analyze-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-.viewer { background: #0f1722; border-radius: 12px; min-height: 400px; overflow: hidden; }
-.viewer-toolbar { display: flex; gap: 4px; padding: 8px 12px; background: rgba(0,0,0,0.3); }
-.viewer-toolbar button { background: rgba(255,255,255,0.08); border: none; color: #9ca3af; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-family: inherit; cursor: pointer; }
-.viewer-toolbar button.active { background: #3b9ecc; color: #fff; }
-.viewer-content { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; padding: 8px; min-height: 340px; }
-.quadrant { background: radial-gradient(ellipse at center, #1a2a3a 0%, #0f1722 70%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 11px; position: relative; min-height: 160px; }
-.quadrant::before { content: ''; position: absolute; width: 60%; height: 1px; background: rgba(59,158,204,0.3); top: 50%; }
-.quadrant::after { content: ''; position: absolute; height: 60%; width: 1px; background: rgba(59,158,204,0.3); left: 50%; }
-.viewer-coords { padding: 6px 12px; background: rgba(0,0,0,0.4); color: #6b7280; font-size: 10px; font-family: 'Inter', monospace; display: flex; gap: 16px; }
-.pathology-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
-.pathology-item:last-child { border-bottom: none; }
-.pathology-item input { accent-color: #3b9ecc; }
-.conf-badge { font-size: 10px; padding: 2px 6px; border-radius: 8px; font-weight: 600; margin-left: auto; }
-.conf-badge.high { background: #f0fdf4; color: #16a34a; }
-.conf-badge.med { background: #fffbeb; color: #d97706; }
-.conf-badge.low { background: #fef2f2; color: #dc2626; }
-.measure-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
-.measure-row:last-child { border-bottom: none; }
-.measure-val { font-weight: 600; }
-.measure-val.warning { color: #d97706; }
-textarea { width: 100%; min-height: 80px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 13px; font-family: inherit; resize: vertical; margin-bottom: 12px; }
-
-/* Section 4 — Confronter */
-.overlay-toggles { display: flex; gap: 6px; margin-left: auto; }
-.overlay-toggle { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: 2px solid; }
-.overlay-toggle.you { background: rgba(59,158,204,0.15); border-color: #3b9ecc; color: #3b9ecc; }
-.overlay-toggle.expert { background: rgba(232,168,56,0.15); border-color: #e8a838; color: #e8a838; }
-.overlay-toggle.ai { background: rgba(147,51,234,0.15); border-color: #9333ea; color: #9333ea; }
-.viewer-overlay { position: relative; min-height: 340px; background: radial-gradient(ellipse at center, #1a2a3a 0%, #0f1722 70%); margin: 8px; border-radius: 6px; }
-.annot-circle { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
-.annot-circle.blue { border-color: #3b9ecc; color: #3b9ecc; background: rgba(59,158,204,0.1); }
-.annot-circle.gold { border-color: #e8a838; color: #e8a838; background: rgba(232,168,56,0.1); }
-.annot-halo { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(147,51,234,0.25) 0%, transparent 70%); }
-.legend-bar { display: flex; gap: 20px; padding: 8px 12px; font-size: 11px; color: #9ca3af; }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-
-/* Timeline expert */
-.timeline { position: relative; padding-left: 32px; }
-.timeline::before { content: ''; position: absolute; left: 13px; top: 0; bottom: 0; width: 1px; background: #e5e7eb; }
-.timeline-step { position: relative; margin-bottom: 24px; }
-.timeline-dot { position: absolute; left: -32px; top: 0; width: 26px; height: 26px; border-radius: 50%; background: #e8a838; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
-.timeline-step .time { font-size: 11px; color: #9ca3af; margin-bottom: 2px; }
-.timeline-step h5 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-.timeline-step .desc { font-size: 12px; color: #6b7280; margin-bottom: 8px; line-height: 1.4; }
-blockquote { background: #fffdf5; border-left: 3px solid #e8a838; padding: 10px 14px; font-size: 12px; font-style: italic; color: #44403c; border-radius: 0 8px 8px 0; line-height: 1.5; margin-bottom: 8px; }
-.audio-mini { display: flex; align-items: center; gap: 8px; }
-.play-btn { width: 28px; height: 28px; background: #e8a838; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.play-btn .material-icons-outlined { font-size: 16px; color: #fff; }
-.waveform { flex: 1; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #e8a838 35%, #e5e7eb 35%); }
-.audio-time { font-size: 10px; color: #9ca3af; }
-
-/* Scores & Table */
-.scores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-.score-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center; }
-.score-card .val { font-size: 32px; font-weight: 700; }
-.score-card .label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
-.score-card .sub { font-size: 11px; margin-top: 4px; }
-.sub.danger { color: #ef4444; }
-.sub.success { color: #22c55e; }
-.sub.warning { color: #d97706; }
-
-table.compare { width: 100%; border-collapse: collapse; font-size: 12px; }
-table.compare th { padding: 10px 12px; font-size: 11px; font-weight: 600; text-align: center; }
-table.compare th.you { background: #eff6ff; }
-table.compare th.expert { background: #fef3c7; }
-table.compare th.ai { background: #f3e8ff; }
-table.compare td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; text-align: center; }
-table.compare td:first-child { text-align: left; font-weight: 500; }
-table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px; }
-.row-missed { background: #fef2f2; }
-
-.insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
-.insight-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; font-size: 12px; line-height: 1.5; }
-.insight-card.red { border-left: 3px solid #ef4444; }
-.insight-card.gold { border-left: 3px solid #e8a838; }
-.insight-card.purple { border-left: 3px solid #9333ea; }
-.insight-card.green { border-left: 3px solid #22c55e; }
-.insight-card h5 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-
-.heatmap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.heatmap-panel { background: #0f1722; border-radius: 10px; height: 200px; position: relative; overflow: hidden; }
-.heatmap-panel .label { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 11px; color: #9ca3af; }
-.halo { position: absolute; border-radius: 50%; }
-.halo.blue { background: radial-gradient(circle, rgba(59,158,204,0.4) 0%, transparent 70%); }
-.halo.gold { background: radial-gradient(circle, rgba(232,168,56,0.4) 0%, transparent 70%); }
-
-/* Section 5 — Décider */
-.treatment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
-.treatment-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; position: relative; }
-.treatment-card.recommended { border: 2px solid #3b9ecc; }
-.treatment-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #3b9ecc; color: #fff; font-size: 10px; font-weight: 600; padding: 3px 12px; border-radius: 12px; white-space: nowrap; }
-.treatment-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; margin-top: 8px; }
-.treatment-card .price { font-size: 20px; font-weight: 700; color: #3b9ecc; margin-bottom: 12px; }
-.treatment-card ul { list-style: none; font-size: 12px; line-height: 2; }
-.treatment-card ul li { display: flex; align-items: center; gap: 6px; }
-
-.implants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-.implant-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 12px; }
-.implant-card.sponsored { background: #fffdf5; border-color: #e8a838; }
-.implant-card .material-icons-outlined { font-size: 28px; color: #6b7280; }
-.implant-card .info h5 { font-size: 13px; font-weight: 600; }
-.implant-card .info p { font-size: 11px; color: #6b7280; }
-.implant-card .price { margin-left: auto; font-size: 16px; font-weight: 700; color: #1a1a2e; }
-.tag { font-size: 9px; padding: 2px 6px; border-radius: 6px; font-weight: 600; }
-.tag.frame { background: #eff6ff; color: #2563eb; }
-.tag.sponsor { background: #fef3c7; color: #92400e; }
-
-.btn-center { text-align: center; margin-top: 32px; }
-.btn-center .btn-primary { width: auto; padding: 14px 48px; }
-
-/* Tabs */
-.tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
-.tab { padding: 8px 16px; font-size: 12px; font-weight: 500; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
-.tab.active { color: #3b9ecc; border-bottom-color: #3b9ecc; }
-
-.gold-tag { background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
-
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .content { animation: fadeIn 0.4s ease-out; }
 .sidebar .nav-item, .sidebar .nav-sub-item { transition: all 0.2s ease; }
 @media (max-width: 1024px) {
   .sidebar { display: none; }
   .main { margin-left: 0; }
-  .analyze-grid, .import-grid, .treatment-grid, .tri-grid, .scores-grid, .insights-grid, .heatmap-grid, .implants-grid { grid-template-columns: 1fr; }
+  .import-grid, .tri-grid { grid-template-columns: 1fr; }
   .search-box { display: none; }
 }
 @media (max-width: 640px) {
   .content { padding: 16px; }
   .section h2 { font-size: 20px; }
-  table { display: block; overflow-x: auto; }
   .stepper { flex-wrap: wrap; gap: 4px; padding: 12px 16px; }
   .step-arrow { margin: 0 4px; }
 }
@@ -247,11 +127,8 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
         <span class="material-icons-outlined nav-arrow">expand_more</span>
       </a>
       <div class="nav-sub">
-        <a href="cas-pratique.html#comprendre" class="nav-sub-item">Comprendre</a>
-        <a href="cas-pratique.html#importer" class="nav-sub-item">Importer</a>
-        <a href="cas-pratique.html#analyser" class="nav-sub-item">Analyser</a>
-        <a href="cas-pratique.html#confronter" class="nav-sub-item">Confronter</a>
-        <a href="cas-pratique.html#decider" class="nav-sub-item">Décider</a>
+        <a href="cas-pratique.html" class="nav-sub-item">Présentation</a>
+        <a href="cas-017.html" class="nav-sub-item">Cas en cours</a>
       </div>
     </div>
     <a href="modules.html" class="nav-item">
@@ -288,13 +165,13 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   <div class="stepper">
     <div class="step"><div class="step-dot active">1</div><span class="step-label active">Comprendre</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">2</div><span class="step-label">Importer</span></div>
+    <div class="step"><div class="step-dot active">2</div><span class="step-label active">Importer</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">3</div><span class="step-label">Analyser</span></div>
+    <div class="step"><div class="step-dot">3</div><span class="step-label" style="color:#d1d5db">Analyser</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">4</div><span class="step-label">Confronter</span></div>
+    <div class="step"><div class="step-dot">4</div><span class="step-label" style="color:#d1d5db">Confronter</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">5</div><span class="step-label">Décider</span></div>
+    <div class="step"><div class="step-dot">5</div><span class="step-label" style="color:#d1d5db">Décider</span></div>
   </div>
 
   <div class="content">
@@ -382,335 +259,12 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
           <label><input type="checkbox" checked> Chronomètre</label>
           <label><input type="checkbox"> Partager</label>
         </div>
-        <button class="btn-primary">Commencer l'analyse →</button>
-      </div>
-    </div>
-
-    <!-- SECTION 3 — ANALYSER -->
-    <div class="section" id="analyser">
-      <h2>Étape 2 — Analysez le scan CBCT</h2>
-      <p class="subtitle">Naviguez dans les coupes 3D, annotez les structures et identifiez les pathologies</p>
-
-      <div class="analyze-grid">
-        <div>
-          <div class="viewer">
-            <div class="viewer-toolbar">
-              <button class="active">MPR</button>
-              <button>Volume 3D</button>
-              <button>Panoramique</button>
-              <button>Mesure</button>
-              <button>Annotation</button>
-            </div>
-            <div class="viewer-content">
-              <div class="quadrant">Axiale</div>
-              <div class="quadrant">Coronale</div>
-              <div class="quadrant">Sagittale</div>
-              <div class="quadrant">Volume 3D</div>
-            </div>
-            <div class="viewer-coords">
-              <span>X:142</span><span>Y:98</span><span>Z:203</span><span>HU:1247</span><span>Zoom:120%</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Pathologies détectées</h4>
-            <div class="pathology-item"><input type="checkbox" checked> Résorption osseuse <span class="conf-badge high">92%</span></div>
-            <div class="pathology-item"><input type="checkbox" checked> Lésion périapicale <span class="conf-badge high">88%</span></div>
-            <div class="pathology-item"><input type="checkbox"> Fracture radiculaire <span class="conf-badge med">67%</span></div>
-            <div class="pathology-item"><input type="checkbox" checked> Perte de hauteur crestale <span class="conf-badge high">95%</span></div>
-            <div class="pathology-item"><input type="checkbox"> Proximité canal mandibulaire <span class="conf-badge med">72%</span></div>
-            <div class="pathology-item"><input type="checkbox" checked> Épaississement sinusien <span class="conf-badge low">45%</span></div>
-            <div class="pathology-item"><input type="checkbox"> Kyste résiduel <span class="conf-badge med">58%</span></div>
-          </div>
-
-          <div class="card">
-            <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">Mesures</h4>
-            <div class="measure-row"><span>Hauteur 36</span><span class="measure-val">8.2 mm</span></div>
-            <div class="measure-row"><span>Hauteur 37</span><span class="measure-val">6.7 mm</span></div>
-            <div class="measure-row"><span>Largeur VL</span><span class="measure-val">9.1 mm</span></div>
-            <div class="measure-row"><span>Distance canal</span><span class="measure-val warning">4.3 mm</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:20px">
-        <textarea placeholder="Décrivez vos observations cliniques..."></textarea>
-        <button class="btn-primary">Valider et passer à la confrontation →</button>
-      </div>
-    </div>
-
-    <!-- SECTION 4 — CONFRONTER -->
-    <div class="section" id="confronter">
-      <h2>Étape 3 — Confrontation tripartite</h2>
-      <p class="subtitle">Comparez votre analyse avec celle du Dr. Fromental et de l'IA</p>
-
-      <div class="info-box" style="margin-bottom:20px">Les annotations des 3 sources sont superposées sur le même scan. Activez/désactivez chaque couche pour comparer.</div>
-
-      <div class="analyze-grid">
-        <div>
-          <div class="viewer">
-            <div class="viewer-toolbar">
-              <button class="active">MPR</button>
-              <button>Volume 3D</button>
-              <button>Panoramique</button>
-              <span style="border-left:1px solid #4b5563;margin:0 8px"></span>
-              <div class="overlay-toggles">
-                <span class="overlay-toggle you">Vous</span>
-                <span class="overlay-toggle expert">Fromental</span>
-                <span class="overlay-toggle ai">IA</span>
-              </div>
-            </div>
-            <div class="viewer-overlay">
-              <!-- Blue circles (student) -->
-              <div class="annot-circle blue" style="top:25%;left:20%">1</div>
-              <div class="annot-circle blue" style="top:40%;left:55%">2</div>
-              <div class="annot-circle blue" style="top:60%;left:35%">3</div>
-              <div class="annot-circle blue" style="top:70%;left:70%">4</div>
-              <!-- Gold circles (Fromental) -->
-              <div class="annot-circle gold" style="top:20%;left:25%">A</div>
-              <div class="annot-circle gold" style="top:30%;left:50%">B</div>
-              <div class="annot-circle gold" style="top:45%;left:30%">C</div>
-              <div class="annot-circle gold" style="top:50%;left:65%">D</div>
-              <div class="annot-circle gold" style="top:65%;left:40%">E</div>
-              <div class="annot-circle gold" style="top:75%;left:60%">F</div>
-              <div class="annot-circle gold" style="top:35%;left:78%">G</div>
-              <!-- Purple halos (AI) -->
-              <div class="annot-halo" style="width:70px;height:70px;top:22%;left:18%"></div>
-              <div class="annot-halo" style="width:80px;height:80px;top:42%;left:48%"></div>
-              <div class="annot-halo" style="width:60px;height:60px;top:62%;left:58%"></div>
-            </div>
-            <div class="legend-bar">
-              <span><span class="legend-dot" style="background:#3b9ecc"></span>Vos annotations (4)</span>
-              <span><span class="legend-dot" style="background:#e8a838"></span>Dr. Fromental (7)</span>
-              <span><span class="legend-dot" style="background:#9333ea"></span>IA Diagnocat (6)</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-              <h4 style="font-size:14px;font-weight:600">Raisonnement Dr. Fromental</h4>
-              <span class="gold-tag">Gold Standard</span>
-            </div>
-            <div class="tabs">
-              <div class="tab active">Étapes</div>
-              <div class="tab">Audio</div>
-              <div class="tab">Vidéo</div>
-            </div>
-            <div class="timeline">
-              <div class="timeline-step">
-                <div class="timeline-dot">1</div>
-                <div class="time">0:00 — Vue panoramique</div>
-                <h5>Évaluation globale de la crête</h5>
-                <div class="desc">Commence par vue d'ensemble, évalue hauteur et largeur crête résiduelle</div>
-                <blockquote>« La première chose que je regarde, c'est la crête dans son ensemble. Avant de zoomer, je veux comprendre la morphologie générale. Ici, on voit tout de suite une résorption centripète. »</blockquote>
-              </div>
-              <div class="timeline-step">
-                <div class="timeline-dot">2</div>
-                <div class="time">0:32 — Coupe coronale secteur 36</div>
-                <h5>Mesure de la hauteur osseuse disponible</h5>
-                <div class="desc">Mesure distance crête-canal mandibulaire</div>
-                <blockquote>« 9.2 mm entre la crête et le canal. C'est suffisant pour un implant court, mais pas pour un standard de 11.5. On garde ça en tête pour la suite. »</blockquote>
-                <div class="audio-mini">
-                  <div class="play-btn"><span class="material-icons-outlined">play_arrow</span></div>
-                  <div class="waveform"></div>
-                  <div class="audio-time">0:32 / 1:14</div>
-                </div>
-              </div>
-              <div class="timeline-step">
-                <div class="timeline-dot">3</div>
-                <div class="time">1:15 — Coupe sagittale</div>
-                <h5>Détection lésion périapicale résiduelle</h5>
-                <div class="desc">Signe subtil que 85% des praticiens ratent</div>
-                <blockquote>« Vous voyez cette zone un peu plus sombre en périapical de l'ancienne 36 ? Ce n'est pas un artefact. C'est un résidu de lésion. Si on implante là sans cureter, on aura un échec à 2 ans. C'est le piège classique. »</blockquote>
-              </div>
-              <div class="timeline-step">
-                <div class="timeline-dot">4</div>
-                <div class="time">2:40 — Vue axiale épaisseur</div>
-                <h5>Évaluation vestibulo-linguale</h5>
-                <div class="desc">Mesure épaisseur pour déterminer si greffe nécessaire</div>
-                <blockquote>« 5.8 mm en vestibulo-lingual. C'est juste. Avec un implant de 4.2, il nous reste 0.8 mm de chaque côté. Pas assez pour une bonne ostéo-intégration sans greffe. »</blockquote>
-              </div>
-              <div class="timeline-step">
-                <div class="timeline-dot">5</div>
-                <div class="time">3:55 — Synthèse</div>
-                <h5>Conclusion et plan</h5>
-                <div class="desc">En 4 minutes, tous les éléments clés identifiés</div>
-                <blockquote>« Résorption modérée mais lésion résiduelle. Il faut cureter, greffer en épaisseur, attendre 4 mois, puis implanter en 36 et 37. C'est le chemin le plus sûr. Le raccourci serait des implants courts sans greffe, mais le taux de survie à 10 ans est moins bon. »</blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Résultats -->
-      <div style="margin-top:24px">
-        <div class="scores-grid">
-          <div class="score-card"><div class="label">Vos pathologies</div><div class="val" style="color:#3b9ecc">4/7</div><div class="sub danger">3 manquées</div></div>
-          <div class="score-card"><div class="label">Dr. Fromental</div><div class="val" style="color:#d97706">7/7</div><div class="sub success">Référence</div></div>
-          <div class="score-card"><div class="label">IA Diagnocat</div><div class="val" style="color:#9333ea">6/7</div><div class="sub warning">1 manquée</div></div>
-          <div class="score-card"><div class="label">Concordance</div><div class="val" style="color:#3b9ecc">62%</div><div class="sub warning">Objectif : 85%</div></div>
-        </div>
-
-        <div class="card">
-          <table class="compare">
-            <tr>
-              <th style="text-align:left">Pathologie</th>
-              <th class="you">Vous</th>
-              <th class="expert">Dr. Fromental</th>
-              <th class="ai">IA</th>
-              <th style="text-align:left">Commentaire</th>
-            </tr>
-            <tr><td>Résorption crête</td><td>✓</td><td>✓</td><td>✓ 94%</td><td>Bien identifié</td></tr>
-            <tr><td>Perte hauteur crestale</td><td>✓</td><td>✓</td><td>✓ 89%</td><td>Mesure correcte</td></tr>
-            <tr><td>Proximité canal</td><td>✓</td><td>✓</td><td>✓ 92%</td><td>Distance 9.2mm</td></tr>
-            <tr><td>Épaisseur VL insuffisante</td><td>✓</td><td>✓</td><td>✓ 87%</td><td>5.8mm nécessite greffe</td></tr>
-            <tr class="row-missed"><td>Lésion périapicale résiduelle</td><td>✗</td><td>✓</td><td>✗ 31%</td><td>« Le piège classique »</td></tr>
-            <tr class="row-missed"><td>Densité osseuse réduite 37</td><td>✗</td><td>✓</td><td>✓ 76%</td><td>Visible en ajustant fenêtrage</td></tr>
-            <tr class="row-missed"><td>Résorption centripète</td><td>✗</td><td>✓</td><td>~ Partiel</td><td>Diagnostic de forme</td></tr>
-          </table>
-        </div>
-
-        <div class="insights-grid">
-          <div class="insight-card red">
-            <h5>Écart principal</h5>
-            <p>Lésion périapicale résiduelle non détectée. Le Dr. Fromental recommande de toujours vérifier les zones périapicales des dents extraites avant implantation.</p>
-          </div>
-          <div class="insight-card gold">
-            <h5>Conseil du maître</h5>
-            <p>Technique de fenêtrage W:1500/L:300 pour révéler les variations subtiles de densité osseuse. Un réglage souvent négligé en formation initiale.</p>
-          </div>
-          <div class="insight-card purple">
-            <h5>Limite IA</h5>
-            <p>Diagnocat rate systématiquement les lésions résiduelles post-extraction. La confrontation humain-IA reste indispensable.</p>
-          </div>
-          <div class="insight-card green">
-            <h5>Point fort</h5>
-            <p>Bonne détection des structures anatomiques principales et mesures précises. Votre progression est notable sur les 3 derniers cas.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-            <h4 style="font-size:14px;font-weight:600">Parcours visuel comparé</h4>
-            <div style="font-size:11px;color:#9ca3af"><span class="legend-dot" style="background:#3b9ecc"></span>Vous <span class="legend-dot" style="background:#e8a838;margin-left:12px"></span>Dr. Fromental</div>
-          </div>
-          <div class="heatmap-grid">
-            <div class="heatmap-panel">
-              <div class="halo blue" style="width:60px;height:60px;top:15%;left:10%"></div>
-              <div class="halo blue" style="width:50px;height:50px;top:55%;left:60%"></div>
-              <div class="halo blue" style="width:70px;height:70px;top:30%;left:70%"></div>
-              <div class="halo blue" style="width:40px;height:40px;top:70%;left:25%"></div>
-              <div class="halo blue" style="width:55px;height:55px;top:40%;left:40%"></div>
-              <div class="label">Votre parcours — Dispersé (12 min)</div>
-            </div>
-            <div class="heatmap-panel">
-              <div class="halo gold" style="width:80px;height:80px;top:30%;left:35%"></div>
-              <div class="halo gold" style="width:70px;height:70px;top:45%;left:50%"></div>
-              <div class="halo gold" style="width:60px;height:60px;top:55%;left:40%"></div>
-              <div class="label">Dr. Fromental — Ciblé (4 min 30)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 5 — DÉCIDER -->
-    <div class="section" id="decider">
-      <h2>Étape 4 — Plan de traitement</h2>
-      <p class="subtitle">3 options thérapeutiques validées par le Dr. Fromental</p>
-
-      <div class="treatment-grid">
-        <div class="treatment-card recommended">
-          <div class="treatment-badge">Recommandé Dr. Fromental</div>
-          <h4>Implants + greffe osseuse</h4>
-          <div class="price">4 500 – 6 200 €</div>
-          <ul>
-            <li>✓ Résultat esthétique optimal</li>
-            <li>✓ Durabilité 20+ ans</li>
-            <li>✓ Préservation osseuse long terme</li>
-            <li>✓ Confort masticatoire maximal</li>
-            <li>⚠ Chirurgie en 2 temps</li>
-            <li>⚠ Délai 4-6 mois</li>
-          </ul>
-        </div>
-        <div class="treatment-card">
-          <h4>Implants courts sans greffe</h4>
-          <div class="price" style="color:#6b7280">2 800 – 3 500 €</div>
-          <ul>
-            <li>✓ Chirurgie en 1 temps</li>
-            <li>✓ Bon rapport qualité/prix</li>
-            <li>✓ Délai 2-3 mois</li>
-            <li>⚠ Durabilité 10-15 ans</li>
-            <li>⚠ Moins adapté si résorption sévère</li>
-            <li>○ Esthétique légèrement inférieure</li>
-          </ul>
-        </div>
-        <div class="treatment-card">
-          <h4>Bridge sur dents naturelles</h4>
-          <div class="price" style="color:#6b7280">1 200 – 1 800 €</div>
-          <ul>
-            <li>✓ Coût le plus bas</li>
-            <li>✓ Pas de chirurgie</li>
-            <li>✓ Résultat rapide 2-3 semaines</li>
-            <li>⚠ Sacrifice dents saines</li>
-            <li>⚠ Durabilité 7-10 ans</li>
-            <li>○ Résorption osseuse continue</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3 style="font-size:17px;font-weight:700;margin-bottom:16px">Implants recommandés — Chemin Premium</h3>
-      <div class="implants-grid">
-        <div class="implant-card">
-          <span class="material-icons-outlined">precision_manufacturing</span>
-          <div class="info">
-            <h5>BioHorizon Tapered Internal</h5>
-            <p>Ø4.2mm × 11.5mm</p>
-            <span class="tag frame">Compatible</span> <span class="tag frame">Certifié FRAME</span>
-          </div>
-          <div class="price">189 €</div>
-        </div>
-        <div class="implant-card sponsored">
-          <span class="material-icons-outlined">precision_manufacturing</span>
-          <div class="info">
-            <h5>Straumann BLX</h5>
-            <p>Ø4.0mm × 12mm</p>
-            <span class="tag frame">Compatible</span> <span class="tag sponsor">Sponsorisé</span>
-          </div>
-          <div class="price">245 €</div>
-        </div>
-        <div class="implant-card">
-          <span class="material-icons-outlined">precision_manufacturing</span>
-          <div class="info">
-            <h5>Nobel Biocare Active</h5>
-            <p>Ø4.3mm × 11.5mm</p>
-            <span class="tag frame">Compatible</span> <span class="tag frame">Certifié FRAME</span>
-          </div>
-          <div class="price">210 €</div>
-        </div>
-        <div class="implant-card sponsored">
-          <span class="material-icons-outlined">precision_manufacturing</span>
-          <div class="info">
-            <h5>Osstem TS IV SA</h5>
-            <p>Ø4.0mm × 11.5mm</p>
-            <span class="tag frame">Compatible</span> <span class="tag sponsor">Sponsorisé</span>
-          </div>
-          <div class="price">95 €</div>
-        </div>
-      </div>
-
-      <div class="btn-center">
-        <button class="btn-primary" style="width:auto;padding:14px 48px">Terminer le cas pratique ✓</button>
+        <a href="cas-017.html" class="btn-primary">Commencer l'analyse →</a>
       </div>
     </div>
 
   </div>
 </div>
-
 
 <script>
 document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
@@ -720,10 +274,6 @@ document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
     if (group) { group.classList.toggle('open'); }
   });
 });
-if (window.location.pathname.includes('cas-pratique')) {
-  var group = document.querySelector('.nav-group');
-  if (group) group.classList.add('open');
-}
 </script>
 </body>
 </html>
