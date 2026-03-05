@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRAME — Marché</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f5f7fa; color: #1a1a2e; display: flex; min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+
+.sidebar { width: 64px; background: #1a2332; display: flex; flex-direction: column; align-items: flex-start; padding: 16px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 20; transition: width 0.25s ease; overflow: hidden; }
+.sidebar:hover { width: 220px; }
+.sidebar .sidebar-logo img { width: 40px; transition: width 0.25s ease; }
+.sidebar:hover .sidebar-logo img { width: 180px; }
+.sidebar-logo { display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; flex-shrink: 0; padding: 0 8px; overflow: hidden; transition: all 0.25s ease; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; width: 100%; padding: 0 10px; }
+.nav-item { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 10px; border-radius: 10px; color: #6b7280; transition: all 0.2s; white-space: nowrap; cursor: pointer; text-decoration: none; }
+.nav-item:hover { background: rgba(59,158,204,0.15); color: #3b9ecc; }
+.nav-item.active { background: rgba(59,158,204,0.15); color: #3b9ecc; }
+.nav-label { font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.15s ease; }
+.sidebar:hover .nav-label { opacity: 1; }
+.nav-arrow { margin-left: auto; font-size: 18px !important; opacity: 0; transition: opacity 0.15s ease, transform 0.2s ease; }
+.sidebar:hover .nav-arrow { opacity: 1; }
+.nav-group.open .nav-arrow { transform: rotate(180deg); }
+.nav-group { position: relative; }
+.nav-sub { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.sidebar:hover .nav-group.open .nav-sub { max-height: 300px; }
+.nav-sub-item { display: block; padding: 8px 10px 8px 36px; font-size: 12px; color: #6b7280; border-radius: 8px; transition: all 0.15s; white-space: nowrap; opacity: 0; text-decoration: none; }
+.sidebar:hover .nav-sub-item { opacity: 1; }
+.nav-sub-item:hover { color: #3b9ecc; background: rgba(59,158,204,0.08); }
+.nav-sub-item.active { color: #3b9ecc; font-weight: 600; background: rgba(59,158,204,0.1); }
+.sidebar-bottom { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 10px; }
+
+.main { margin-left: 64px; transition: margin-left 0.25s ease; flex: 1; }
+.topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; }
+.breadcrumb { font-size: 13px; color: #6b7280; }
+.breadcrumb strong { color: #1a1a2e; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.search-box { background: #f5f7fa; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 12px; font-size: 13px; width: 200px; font-family: inherit; }
+.avatar { width: 32px; height: 32px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; }
+.badge-certified { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+.badge-certified .material-icons-outlined { font-size: 14px; color: #e8a838; }
+
+.content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+.section { margin-bottom: 48px; }
+.section h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.section .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 20px; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+
+/* Filters */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter-btn { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid #e5e7eb; background: #fff; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.filter-btn:hover { border-color: #3b9ecc; color: #3b9ecc; }
+.filter-btn.active { background: #3b9ecc; color: #fff; border-color: #3b9ecc; }
+.filter-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; }
+.filter-row select { padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; font-family: inherit; background: #fff; }
+.filter-row .search-products { flex: 1; max-width: 300px; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; font-family: inherit; }
+
+/* Product grid */
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.product-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; transition: all 0.2s; position: relative; }
+.product-card:hover { border-color: #3b9ecc; box-shadow: 0 4px 12px rgba(59,158,204,0.1); transform: translateY(-2px); }
+.product-img { height: 180px; background: #f0f4f8; display: flex; align-items: center; justify-content: center; position: relative; }
+.product-img .material-icons-outlined { font-size: 56px; color: #cbd5e1; }
+.product-badge { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+.product-badge.certified { background: #eff6ff; color: #2563eb; }
+.product-badge.sponsored { background: #fef3c7; color: #92400e; }
+.product-badge.new { background: #f0fdf4; color: #16a34a; }
+.product-badge.promo { background: #fef2f2; color: #dc2626; }
+.product-body { padding: 16px; }
+.product-brand { font-size: 11px; color: #9ca3af; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.product-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.product-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 12px; }
+.product-specs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.spec-tag { font-size: 10px; padding: 3px 8px; border-radius: 6px; background: #f5f7fa; color: #6b7280; font-weight: 500; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f3f4f6; }
+.product-price { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+.product-price .unit { font-size: 12px; color: #9ca3af; font-weight: 400; }
+.product-price .old { font-size: 13px; color: #9ca3af; text-decoration: line-through; margin-right: 6px; font-weight: 400; }
+.btn-add { background: #3b9ecc; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 4px; }
+.btn-add:hover { background: #2d8ab8; }
+.btn-add .material-icons-outlined { font-size: 16px; }
+.rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #e8a838; margin-bottom: 8px; }
+.rating .count { color: #9ca3af; }
+
+/* Featured banner */
+.featured-banner { background: linear-gradient(135deg, #1a2332, #2a3a4e); border-radius: 16px; padding: 32px; color: #fff; display: flex; align-items: center; gap: 32px; margin-bottom: 32px; }
+.featured-banner .text h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.featured-banner .text p { font-size: 14px; color: #9ca3af; line-height: 1.5; margin-bottom: 16px; }
+.featured-banner .text .btn-featured { background: #e8a838; color: #1a1a2e; border: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.featured-banner .visual { width: 200px; height: 140px; background: rgba(59,158,204,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.featured-banner .visual .material-icons-outlined { font-size: 56px; color: #3b9ecc; }
+
+/* Cart summary */
+.cart-bar { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; bottom: 16px; margin-top: 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
+.cart-info { display: flex; align-items: center; gap: 12px; }
+.cart-info .material-icons-outlined { font-size: 24px; color: #3b9ecc; }
+.cart-info .count { font-size: 14px; font-weight: 600; }
+.cart-info .total { font-size: 14px; color: #6b7280; margin-left: 8px; }
+.btn-cart { background: #3b9ecc; color: #fff; border: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px; }
+.btn-cart:hover { background: #2d8ab8; }
+
+/* Categories row */
+.categories { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
+.cat-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.cat-card:hover { border-color: #3b9ecc; background: #f0f9ff; }
+.cat-card .material-icons-outlined { font-size: 28px; color: #3b9ecc; margin-bottom: 6px; }
+.cat-card h4 { font-size: 13px; font-weight: 600; }
+.cat-card p { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+/* Mobile nav */
+.mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: #1a2332; padding: 12px 16px; align-items: center; justify-content: space-between; }
+.mobile-header .logo { color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.hamburger { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; padding: 4px; line-height: 1; }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 100; }
+.mobile-menu.open { display: flex; flex-direction: column; }
+.mobile-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+.mobile-drawer { position: relative; z-index: 1; background: #1a2332; width: 280px; height: 100%; padding: 20px 0; overflow-y: auto; animation: slideIn 0.25s ease; }
+@keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+.mobile-drawer .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; }
+.mobile-drawer .drawer-header .logo { color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.mobile-drawer .close-btn { background: none; border: none; color: #6b7280; font-size: 24px; cursor: pointer; }
+.mobile-drawer .m-nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #9ca3af; font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+.mobile-drawer .m-nav-item:hover, .mobile-drawer .m-nav-item.active { color: #3b9ecc; background: rgba(59,158,204,0.1); }
+.mobile-drawer .m-nav-item .material-icons-outlined { font-size: 20px; }
+.mobile-drawer .m-nav-sub { padding-left: 52px; }
+.mobile-drawer .m-nav-sub a { display: block; padding: 8px 20px; color: #6b7280; font-size: 13px; text-decoration: none; transition: all 0.15s; }
+.mobile-drawer .m-nav-sub a:hover, .mobile-drawer .m-nav-sub a.active { color: #3b9ecc; }
+.mobile-drawer .m-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 12px 20px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.content { animation: fadeIn 0.4s ease-out; }
+
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .mobile-header { display: flex; }
+  .main { margin-top: 52px; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .categories { grid-template-columns: repeat(3, 1fr); }
+  .featured-banner { flex-direction: column; text-align: center; }
+  .featured-banner .visual { width: 100%; height: 100px; }
+  .search-box { display: none; }
+  .badge-certified { display: none; }
+}
+@media (max-width: 640px) {
+  .content { padding: 16px; }
+  .section h2 { font-size: 18px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .categories { grid-template-columns: repeat(2, 1fr); }
+  .topbar { padding: 10px 16px; }
+  .filter-row { flex-direction: column; align-items: stretch; }
+  .filter-row .search-products { max-width: 100%; }
+  .cart-bar { flex-direction: column; gap: 12px; text-align: center; }
+  .btn-cart { width: 100%; justify-content: center; }
+  .featured-banner { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile header -->
+<div class="mobile-header">
+  <div class="logo"><img src="logo-frame-light.png" alt="FRAME" style="height:24px;object-fit:contain"></div>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">&#9776;</button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-overlay" onclick="document.getElementById('mobileMenu').classList.remove('open')"></div>
+  <div class="mobile-drawer">
+    <div class="drawer-header">
+      <div class="logo"><img src="logo-frame-light.png" alt="FRAME" style="height:24px;object-fit:contain"></div>
+      <button class="close-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">&times;</button>
+    </div>
+    <a href="index.html" class="m-nav-item"><span class="material-icons-outlined">home</span> Dashboard</a>
+    <a href="cas-pratique.html" class="m-nav-item"><span class="material-icons-outlined">biotech</span> Cas Pratique</a>
+    <div class="m-nav-sub">
+      <a href="cas-pratique.html">Présentation</a>
+      <a href="cas-017.html">Cas en cours</a>
+    </div>
+    <a href="modules.html" class="m-nav-item"><span class="material-icons-outlined">school</span> Modules</a>
+    <a href="marche.html" class="m-nav-item active"><span class="material-icons-outlined">storefront</span> Marché</a>
+    <div class="m-divider"></div>
+    <a href="profil.html" class="m-nav-item"><span class="material-icons-outlined">person</span> Profil</a>
+    <a href="#" class="m-nav-item"><span class="material-icons-outlined">settings</span> Réglages</a>
+    <a href="#" class="m-nav-item"><span class="material-icons-outlined">help_outline</span> Aide</a>
+  </div>
+</div>
+
+<nav class="sidebar">
+  <a href="index.html" class="sidebar-logo"><img src="logo-frame-light.png" alt="FRAME"></a>
+  <div class="sidebar-nav">
+    <a href="index.html" class="nav-item">
+      <span class="material-icons-outlined">home</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <div class="nav-group">
+      <a href="cas-pratique.html" class="nav-item">
+        <span class="material-icons-outlined">biotech</span>
+        <span class="nav-label">Cas Pratique</span>
+        <span class="material-icons-outlined nav-arrow">expand_more</span>
+      </a>
+      <div class="nav-sub">
+        <a href="cas-pratique.html" class="nav-sub-item">Présentation</a>
+        <a href="cas-017.html" class="nav-sub-item">Cas en cours</a>
+      </div>
+    </div>
+    <a href="modules.html" class="nav-item">
+      <span class="material-icons-outlined">school</span>
+      <span class="nav-label">Modules</span>
+    </a>
+    <a href="marche.html" class="nav-item active">
+      <span class="material-icons-outlined">storefront</span>
+      <span class="nav-label">Marché</span>
+    </a>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="profil.html" class="nav-item">
+      <span class="material-icons-outlined">person</span>
+      <span class="nav-label">Profil</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-outlined">settings</span>
+      <span class="nav-label">Réglages</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-outlined">help_outline</span>
+      <span class="nav-label">Aide</span>
+    </a>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb">FRAME / <strong>Marché</strong></div>
+    <div class="topbar-right">
+      <div class="badge-certified"><span class="material-icons-outlined">workspace_premium</span> Certifié Dr. Fromental</div>
+      <input type="text" class="search-box" placeholder="Rechercher un produit…">
+      <div class="avatar">JF</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Featured -->
+    <div class="featured-banner">
+      <div class="text">
+        <h3>Implants recommandes par le Dr. Fromental</h3>
+        <p>Chaque implant est selectionne et certifie pour les cas FRAME. Compatibilite garantie, traçabilite complete, livraison 48h.</p>
+        <button class="btn-featured">Voir la selection certifiee</button>
+      </div>
+      <div class="visual">
+        <span class="material-icons-outlined">precision_manufacturing</span>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="section">
+      <h2>Categories</h2>
+      <p class="subtitle">Tout le materiel pour vos cas d'implantologie</p>
+      <div class="categories">
+        <div class="cat-card">
+          <span class="material-icons-outlined">precision_manufacturing</span>
+          <h4>Implants</h4>
+          <p>127 produits</p>
+        </div>
+        <div class="cat-card">
+          <span class="material-icons-outlined">settings</span>
+          <h4>Piliers</h4>
+          <p>84 produits</p>
+        </div>
+        <div class="cat-card">
+          <span class="material-icons-outlined">healing</span>
+          <h4>Greffes osseuses</h4>
+          <p>43 produits</p>
+        </div>
+        <div class="cat-card">
+          <span class="material-icons-outlined">handyman</span>
+          <h4>Instruments</h4>
+          <p>96 produits</p>
+        </div>
+        <div class="cat-card">
+          <span class="material-icons-outlined">inventory_2</span>
+          <h4>Kits chirurgicaux</h4>
+          <p>31 produits</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="section">
+      <h2>Implants</h2>
+      <p class="subtitle">127 produits disponibles</p>
+
+      <div class="filters">
+        <button class="filter-btn active">Tous</button>
+        <button class="filter-btn">Certifies FRAME</button>
+        <button class="filter-btn">Straumann</button>
+        <button class="filter-btn">Nobel Biocare</button>
+        <button class="filter-btn">BioHorizons</button>
+        <button class="filter-btn">Osstem</button>
+        <button class="filter-btn">Zimmer Biomet</button>
+        <button class="filter-btn">MIS</button>
+      </div>
+
+      <div class="filter-row">
+        <input type="text" class="search-products" placeholder="Rechercher par nom, reference...">
+        <select>
+          <option>Diametre</option>
+          <option>3.3mm</option>
+          <option>3.5mm</option>
+          <option>4.0mm</option>
+          <option>4.2mm</option>
+          <option>4.5mm</option>
+          <option>5.0mm</option>
+        </select>
+        <select>
+          <option>Longueur</option>
+          <option>6mm</option>
+          <option>8mm</option>
+          <option>10mm</option>
+          <option>11.5mm</option>
+          <option>13mm</option>
+        </select>
+        <select>
+          <option>Trier par</option>
+          <option>Prix croissant</option>
+          <option>Prix decroissant</option>
+          <option>Mieux notes</option>
+          <option>Plus vendus</option>
+        </select>
+      </div>
+
+      <!-- Products -->
+      <div class="products-grid">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge certified">Certifie FRAME</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">BIOHORIZONS</div>
+            <div class="product-name">Tapered Internal</div>
+            <div class="product-desc">Implant conique a connexion interne. Surface Laser-Lok. Ideal pour les crets etroites et edentements posterieurs.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="count">(142)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 4.2mm</span>
+              <span class="spec-tag">L 11.5mm</span>
+              <span class="spec-tag">Conique</span>
+              <span class="spec-tag">Laser-Lok</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">189 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge sponsored">Sponsorise</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">STRAUMANN</div>
+            <div class="product-name">BLX Implant</div>
+            <div class="product-desc">Implant fully tapered pour mise en charge immediate. Surface SLActive. Stabilite primaire elevee meme en os de faible densite.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="count">(89)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 4.0mm</span>
+              <span class="spec-tag">L 12mm</span>
+              <span class="spec-tag">Conique</span>
+              <span class="spec-tag">SLActive</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">245 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge certified">Certifie FRAME</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">NOBEL BIOCARE</div>
+            <div class="product-name">NobelActive</div>
+            <div class="product-desc">Design unique a apex forant. Condensation osseuse lors de l'insertion. Excellent pour les protocoles immediats.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="count">(67)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 4.3mm</span>
+              <span class="spec-tag">L 11.5mm</span>
+              <span class="spec-tag">Conique</span>
+              <span class="spec-tag">TiUnite</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">210 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge new">Nouveau</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">OSSTEM</div>
+            <div class="product-name">TS IV SA</div>
+            <div class="product-desc">Implant a double filetage. Surface SA hydrophile. Excellent rapport qualite/prix pour les protocoles standards.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="count">(203)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 4.0mm</span>
+              <span class="spec-tag">L 11.5mm</span>
+              <span class="spec-tag">Cylindrique</span>
+              <span class="spec-tag">SA</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">95 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge promo">-15%</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">ZIMMER BIOMET</div>
+            <div class="product-name">T3 Implant</div>
+            <div class="product-desc">Triple filetage progressif, surface microtexturee. Conçu pour la stabilite primaire en os type III-IV.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="count">(56)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 4.1mm</span>
+              <span class="spec-tag">L 10mm</span>
+              <span class="spec-tag">Conique</span>
+              <span class="spec-tag">MTX</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price"><span class="old">220 €</span> 187 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">precision_manufacturing</span>
+            <span class="product-badge certified">Certifie FRAME</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">MIS IMPLANTS</div>
+            <div class="product-name">C1 Conical</div>
+            <div class="product-desc">Connexion conique interne 12°. Design self-tapping. Surface triangulaire pour meilleure osteo-integration.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="count">(91)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">O 3.75mm</span>
+              <span class="spec-tag">L 11.5mm</span>
+              <span class="spec-tag">Conique</span>
+              <span class="spec-tag">SB</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">135 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Greffes -->
+    <div class="section">
+      <h2>Greffes osseuses & Biomateriaux</h2>
+      <p class="subtitle">43 produits — Substituts osseux, membranes, PRF</p>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">healing</span>
+            <span class="product-badge certified">Certifie FRAME</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">GEISTLICH</div>
+            <div class="product-name">Bio-Oss 0.5g</div>
+            <div class="product-desc">Substitut osseux bovin deproteine. Granules 0.25-1mm. Reference mondiale pour la regeneration osseuse guidee.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="count">(312)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">0.5g</span>
+              <span class="spec-tag">Bovin</span>
+              <span class="spec-tag">0.25-1mm</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">89 € <span class="unit">/ flacon</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">healing</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">GEISTLICH</div>
+            <div class="product-name">Bio-Gide 25×25mm</div>
+            <div class="product-desc">Membrane de collagene resorbable bicouche. Duree de resorption 6-9 mois. Compatible avec tous les substituts.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="count">(198)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">25x25mm</span>
+              <span class="spec-tag">Collagene</span>
+              <span class="spec-tag">Resorbable</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">145 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">
+            <span class="material-icons-outlined">healing</span>
+            <span class="product-badge sponsored">Sponsorise</span>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">INION</div>
+            <div class="product-name">CPS Membrane</div>
+            <div class="product-desc">Membrane synthetique en PLA/PGA. Rigidite controlee pour maintien d'espace sans vis de fixation.</div>
+            <div class="rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="count">(47)</span></div>
+            <div class="product-specs">
+              <span class="spec-tag">30x40mm</span>
+              <span class="spec-tag">Synthetique</span>
+              <span class="spec-tag">Rigide</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">178 € <span class="unit">/ unite</span></div>
+              <button class="btn-add"><span class="material-icons-outlined">add_shopping_cart</span> Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart bar -->
+    <div class="cart-bar">
+      <div class="cart-info">
+        <span class="material-icons-outlined">shopping_cart</span>
+        <span class="count">3 articles</span>
+        <span class="total">— Total : 523 €</span>
+      </div>
+      <button class="btn-cart"><span class="material-icons-outlined">payment</span> Commander</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.nav-group > .nav-item').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    var group = this.closest('.nav-group');
+    if (group) { group.classList.toggle('open'); }
+  });
+});
+
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
