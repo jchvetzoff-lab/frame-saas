@@ -181,6 +181,36 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 
 .btn-primary-center { display: block; margin: 0 auto; background: var(--primary); color: #fff; border: none; padding: 12px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-primary-center:hover { background: var(--primary-dark); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .topbar-search { display: none; }
+  .layout-split { grid-template-columns: 1fr; }
+  .heatmap-body { grid-template-columns: 1fr; }
+  .heatmap-panel:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .insights-grid { grid-template-columns: 1fr; }
+  .score-grid { grid-template-columns: repeat(2, 1fr); }
+  .score-card { flex: 1 1 45%; }
+}
+
+@media (max-width: 640px) {
+  .content { padding: 16px; }
+  .topbar { padding: 0 16px; }
+  .topbar-badge { display: none; }
+  .page-header h1 { font-size: 20px; }
+  .cas-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .workflow-tabs { flex-wrap: wrap; }
+  .wf-tab { font-size: 11px; padding: 10px 8px; flex: 1 1 33%; border-bottom: 1px solid var(--border); }
+  .wf-tab-name { font-size: 10px; }
+  .score-grid { grid-template-columns: 1fr; }
+  .score-card { flex: 1 1 100%; }
+  .viewer-container, .viewer-area { min-height: 280px; }
+  .expert-panel { max-height: none; }
+  .comparison-table { font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 8px 10px; }
+  .heatmap-viewer { height: 160px; }
+}
 </style>
 </head>
 <body>

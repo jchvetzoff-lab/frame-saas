@@ -70,6 +70,19 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 
 .btn-submit { width: 100%; padding: 14px; background: var(--primary); color: #fff; border-radius: 10px; font-size: 15px; font-weight: 600; margin-top: 20px; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: background 0.15s; }
 .btn-submit:hover { background: var(--primary-dark); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+}
+
+@media (max-width: 640px) {
+  .content { padding: 16px; }
+  .topbar { padding: 0 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: auto; }
+  .dropzone { height: 140px; }
+}
 </style>
 </head>
 <body>
