@@ -75,9 +75,61 @@ a { text-decoration: none; color: inherit; }
   .content { padding: 16px; }
   .module-card { flex-wrap: wrap; }
 }
+
+/* Mobile nav */
+.mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: #1a2332; padding: 12px 16px; align-items: center; justify-content: space-between; }
+.mobile-header .logo { color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.mobile-header .logo-dot { width: 28px; height: 28px; background: #3b9ecc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 700; }
+.hamburger { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; padding: 4px; line-height: 1; }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 100; }
+.mobile-menu.open { display: flex; flex-direction: column; }
+.mobile-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+.mobile-drawer { position: relative; z-index: 1; background: #1a2332; width: 280px; height: 100%; padding: 20px 0; overflow-y: auto; animation: slideIn 0.25s ease; }
+@keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+.mobile-drawer .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; }
+.mobile-drawer .drawer-header .logo { color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.mobile-drawer .close-btn { background: none; border: none; color: #6b7280; font-size: 24px; cursor: pointer; }
+.mobile-drawer .m-nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #9ca3af; font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+.mobile-drawer .m-nav-item:hover, .mobile-drawer .m-nav-item.active { color: #3b9ecc; background: rgba(59,158,204,0.1); }
+.mobile-drawer .m-nav-item .material-icons-outlined { font-size: 20px; }
+.mobile-drawer .m-nav-sub { padding-left: 52px; }
+.mobile-drawer .m-nav-sub a { display: block; padding: 8px 20px; color: #6b7280; font-size: 13px; text-decoration: none; transition: all 0.15s; }
+.mobile-drawer .m-nav-sub a:hover, .mobile-drawer .m-nav-sub a.active { color: #3b9ecc; }
+.mobile-drawer .m-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 12px 20px; }
+@media (max-width: 1024px) {
+  .mobile-header { display: flex; }
+  .main { margin-top: 52px; }
+}
 </style>
 </head>
 <body>
+
+
+<!-- Mobile header -->
+<div class="mobile-header">
+  <div class="logo"><div class="logo-dot">F</div> FRAME</div>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">&#9776;</button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-overlay" onclick="document.getElementById('mobileMenu').classList.remove('open')"></div>
+  <div class="mobile-drawer">
+    <div class="drawer-header">
+      <div class="logo"><div class="logo-dot">F</div> FRAME</div>
+      <button class="close-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">&times;</button>
+    </div>
+    <a href="index.html" class="m-nav-item"><span class="material-icons-outlined">home</span> Dashboard</a>
+    <a href="cas-pratique.html" class="m-nav-item"><span class="material-icons-outlined">biotech</span> Cas Pratique</a>
+    <div class="m-nav-sub">
+      <a href="cas-pratique.html">Présentation</a>
+      <a href="cas-017.html">Cas en cours</a>
+    </div>
+    <a href="modules.html" class="m-nav-item active"><span class="material-icons-outlined">school</span> Modules</a>
+    <div class="m-divider"></div>
+    <a href="profil.html" class="m-nav-item"><span class="material-icons-outlined">person</span> Profil</a>
+    <a href="#" class="m-nav-item"><span class="material-icons-outlined">settings</span> Réglages</a>
+    <a href="#" class="m-nav-item"><span class="material-icons-outlined">help_outline</span> Aide</a>
+  </div>
+</div>
 
 <nav class="sidebar">
   <div class="sidebar-logo">F</div>
