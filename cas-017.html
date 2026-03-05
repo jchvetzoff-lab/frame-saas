@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FRAME — Cas #017</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,6 +62,8 @@ a { text-decoration: none; color: inherit; }
 .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
 .btn-primary { background: #3b9ecc; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; width: 100%; justify-content: center; }
 .btn-primary:hover { background: #2d8ab8; }
+.btn-secondary { background: #fff; color: #3b9ecc; border: 2px solid #3b9ecc; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; justify-content: center; }
+.btn-secondary:hover { background: #eff6ff; }
 
 /* Cas header */
 .cas-header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 16px 32px; }
@@ -71,16 +73,31 @@ a { text-decoration: none; color: inherit; }
 /* Info box */
 .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 18px; font-size: 13px; color: #1e40af; line-height: 1.5; }
 
-/* Section 3 — Analyser */
+/* Section 1 — Scan importé */
+.badge-imported { display: inline-flex; align-items: center; gap: 4px; background: #f0fdf4; color: #16a34a; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+.scan-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin: 16px 0; }
+.scan-info-item { font-size: 13px; color: #6b7280; padding: 6px 0; }
+.scan-info-item strong { color: #1a1a2e; }
+.scan-image-container { background: #0f1722; border-radius: 12px; overflow: hidden; margin: 16px 0; position: relative; }
+.scan-image-container img { width: 100%; max-height: 300px; object-fit: cover; display: block; }
+.scan-image-fallback { display: none; padding: 60px 20px; text-align: center; color: #6b7280; font-size: 14px; }
+.btn-scroll { background: #f5f7fa; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; color: #3b9ecc; margin-top: 12px; }
+.btn-scroll:hover { background: #eff6ff; }
+
+/* Section 2 — Analyser */
 .analyze-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 .viewer { background: #0f1722; border-radius: 12px; min-height: 400px; overflow: hidden; }
 .viewer-toolbar { display: flex; gap: 4px; padding: 8px 12px; background: rgba(0,0,0,0.3); }
 .viewer-toolbar button { background: rgba(255,255,255,0.08); border: none; color: #9ca3af; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-family: inherit; cursor: pointer; }
 .viewer-toolbar button.active { background: #3b9ecc; color: #fff; }
-.viewer-content { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; padding: 8px; min-height: 340px; }
-.quadrant { background: radial-gradient(ellipse at center, #1a2a3a 0%, #0f1722 70%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 11px; position: relative; min-height: 160px; }
-.quadrant::before { content: ''; position: absolute; width: 60%; height: 1px; background: rgba(59,158,204,0.3); top: 50%; }
-.quadrant::after { content: ''; position: absolute; height: 60%; width: 1px; background: rgba(59,158,204,0.3); left: 50%; }
+.viewer-content { position: relative; min-height: 340px; padding: 8px; overflow: hidden; }
+.viewer-content img { width: 100%; height: 340px; object-fit: cover; border-radius: 6px; filter: contrast(1.2) brightness(0.8); }
+.viewer-content .measure-line { position: absolute; background: #3b9ecc; }
+.viewer-content .measure-line.h1 { width: 120px; height: 1px; top: 35%; left: 20%; }
+.viewer-content .measure-line.h2 { width: 1px; height: 80px; top: 25%; left: 20%; }
+.viewer-content .measure-line.h3 { width: 90px; height: 1px; top: 60%; left: 55%; }
+.viewer-content .measure-line.h4 { width: 1px; height: 60px; top: 45%; left: 55%; }
+.viewer-content .measure-label { position: absolute; color: #3b9ecc; font-size: 10px; font-weight: 600; background: rgba(15,23,34,0.8); padding: 2px 6px; border-radius: 4px; }
 .viewer-coords { padding: 6px 12px; background: rgba(0,0,0,0.4); color: #6b7280; font-size: 10px; font-family: 'Inter', monospace; display: flex; gap: 16px; }
 .pathology-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
 .pathology-item:last-child { border-bottom: none; }
@@ -95,13 +112,15 @@ a { text-decoration: none; color: inherit; }
 .measure-val.warning { color: #d97706; }
 textarea { width: 100%; min-height: 80px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 13px; font-family: inherit; resize: vertical; margin-bottom: 12px; }
 
-/* Section 4 — Confronter */
+/* Section 3 — Confronter */
 .overlay-toggles { display: flex; gap: 6px; margin-left: auto; }
 .overlay-toggle { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: 2px solid; }
 .overlay-toggle.you { background: rgba(59,158,204,0.15); border-color: #3b9ecc; color: #3b9ecc; }
 .overlay-toggle.expert { background: rgba(232,168,56,0.15); border-color: #e8a838; color: #e8a838; }
 .overlay-toggle.ai { background: rgba(147,51,234,0.15); border-color: #9333ea; color: #9333ea; }
-.viewer-overlay { position: relative; min-height: 340px; background: radial-gradient(ellipse at center, #1a2a3a 0%, #0f1722 70%); margin: 8px; border-radius: 6px; }
+.viewer-overlay { position: relative; min-height: 340px; margin: 8px; border-radius: 6px; overflow: hidden; }
+.viewer-overlay img { width: 100%; height: 340px; object-fit: cover; filter: contrast(1.1) brightness(0.7); }
+.viewer-overlay .annotations-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .annot-circle { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
 .annot-circle.blue { border-color: #3b9ecc; color: #3b9ecc; background: rgba(59,158,204,0.1); }
 .annot-circle.gold { border-color: #e8a838; color: #e8a838; background: rgba(232,168,56,0.1); }
@@ -159,7 +178,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 .halo.blue { background: radial-gradient(circle, rgba(59,158,204,0.4) 0%, transparent 70%); }
 .halo.gold { background: radial-gradient(circle, rgba(232,168,56,0.4) 0%, transparent 70%); }
 
-/* Section 5 — Décider */
+/* Section 4 — Décider */
 .treatment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
 .treatment-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; position: relative; }
 .treatment-card.recommended { border: 2px solid #3b9ecc; }
@@ -190,13 +209,29 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 
 .gold-tag { background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
 
+/* Section 5 — Résultat */
+.result-score { font-size: 64px; font-weight: 800; color: #3b9ecc; line-height: 1; }
+.result-subtitle { font-size: 16px; color: #6b7280; margin-top: 4px; }
+.progress-bar { position: relative; height: 12px; background: #e5e7eb; border-radius: 6px; margin: 24px 0 8px; overflow: visible; }
+.progress-fill { height: 100%; background: #3b9ecc; border-radius: 6px; width: 76%; }
+.progress-goal { position: absolute; left: 85%; top: -20px; font-size: 10px; color: #d97706; font-weight: 600; }
+.progress-goal::after { content: ''; position: absolute; left: 50%; top: 16px; width: 2px; height: 20px; background: #d97706; transform: translateX(-50%); }
+.result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.result-stat { text-align: center; padding: 16px; background: #f5f7fa; border-radius: 10px; }
+.result-stat .stat-val { font-size: 24px; font-weight: 700; color: #1a1a2e; }
+.result-stat .stat-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+.gold-box { background: #fffdf5; border: 1px solid #e8a838; border-radius: 10px; padding: 16px 20px; font-size: 13px; color: #44403c; line-height: 1.6; margin: 24px 0; }
+.gold-box strong { color: #92400e; }
+.result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+.result-actions .btn-primary, .result-actions .btn-secondary { width: auto; padding: 14px 32px; }
+
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .content { animation: fadeIn 0.4s ease-out; }
 .sidebar .nav-item, .sidebar .nav-sub-item { transition: all 0.2s ease; }
 @media (max-width: 1024px) {
   .sidebar { display: none; }
   .main { margin-left: 0; }
-  .analyze-grid, .treatment-grid, .scores-grid, .insights-grid, .heatmap-grid, .implants-grid { grid-template-columns: 1fr; }
+  .analyze-grid, .treatment-grid, .scores-grid, .insights-grid, .heatmap-grid, .implants-grid, .result-stats { grid-template-columns: 1fr; }
   .search-box { display: none; }
 }
 @media (max-width: 640px) {
@@ -205,6 +240,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   table { display: block; overflow-x: auto; }
   .stepper { flex-wrap: wrap; gap: 4px; padding: 12px 16px; }
   .step-arrow { margin: 0 4px; }
+  .result-score { font-size: 48px; }
 }
 </style>
 </head>
@@ -260,15 +296,15 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
   </div>
 
   <div class="stepper">
-    <div class="step"><div class="step-dot done">✓</div><span class="step-label done">Comprendre</span></div>
+    <div class="step"><div class="step-dot done">✓</div><span class="step-label done">Scan importé</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot done">✓</div><span class="step-label done">Importer</span></div>
+    <div class="step"><div class="step-dot active">2</div><span class="step-label active">Analyser</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot active">3</div><span class="step-label active">Analyser</span></div>
+    <div class="step"><div class="step-dot">3</div><span class="step-label">Confronter</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">4</div><span class="step-label">Confronter</span></div>
+    <div class="step"><div class="step-dot">4</div><span class="step-label">Décider</span></div>
     <span class="step-arrow">→</span>
-    <div class="step"><div class="step-dot">5</div><span class="step-label">Décider</span></div>
+    <div class="step"><div class="step-dot">5</div><span class="step-label">Résultat</span></div>
   </div>
 
   <div class="cas-header">
@@ -278,7 +314,27 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 
   <div class="content">
 
-    <!-- SECTION 3 — ANALYSER -->
+    <!-- SECTION 1 — SCAN IMPORTÉ -->
+    <div class="section" id="scan-importe">
+      <div class="card">
+        <div class="badge-imported">✓ Importé</div>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Scan CBCT — Patient anonymisé #017</h3>
+        <div class="scan-info-grid">
+          <div class="scan-info-item"><strong>Résolution :</strong> 0.2mm</div>
+          <div class="scan-info-item"><strong>Format :</strong> DICOM</div>
+          <div class="scan-info-item"><strong>Secteur :</strong> 36-37</div>
+          <div class="scan-info-item"><strong>Type :</strong> Édentement postérieur</div>
+        </div>
+        <div class="scan-image-container">
+          <img src="https://prod-images-static.radiopaedia.org/images/157210/332aa3dce58732523d3db595a86bc2_big_gallery.jpeg" alt="Panoramique dentaire — Secteur 36-37" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="scan-image-fallback">Panoramique dentaire — Secteur 36-37</div>
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin-top:12px">Scan importé le 14/02/2026 — Prêt pour l'analyse</p>
+        <button class="btn-scroll" onclick="document.getElementById('analyser').scrollIntoView({behavior:'smooth'})">Passer à l'analyse ↓</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2 — ANALYSER -->
     <div class="section" id="analyser">
       <h2>Étape 2 — Analysez le scan CBCT</h2>
       <p class="subtitle">Naviguez dans les coupes 3D, annotez les structures et identifiez les pathologies</p>
@@ -294,10 +350,13 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
               <button>Annotation</button>
             </div>
             <div class="viewer-content">
-              <div class="quadrant">Axiale</div>
-              <div class="quadrant">Coronale</div>
-              <div class="quadrant">Sagittale</div>
-              <div class="quadrant">Volume 3D</div>
+              <img src="https://prod-images-static.radiopaedia.org/images/157210/332aa3dce58732523d3db595a86bc2_big_gallery.jpeg" alt="CBCT Scan" onerror="this.style.display='none'">
+              <div class="measure-line h1"></div>
+              <div class="measure-line h2"></div>
+              <div class="measure-line h3"></div>
+              <div class="measure-line h4"></div>
+              <span class="measure-label" style="top:32%;left:22%">8.2 mm</span>
+              <span class="measure-label" style="top:57%;left:57%">6.7 mm</span>
             </div>
             <div class="viewer-coords">
               <span>X:142</span><span>Y:98</span><span>Z:203</span><span>HU:1247</span><span>Zoom:120%</span>
@@ -333,7 +392,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
       </div>
     </div>
 
-    <!-- SECTION 4 — CONFRONTER -->
+    <!-- SECTION 3 — CONFRONTER -->
     <div class="section" id="confronter">
       <h2>Étape 3 — Confrontation tripartite</h2>
       <p class="subtitle">Comparez votre analyse avec celle du Dr. Fromental et de l'IA</p>
@@ -355,20 +414,23 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
               </div>
             </div>
             <div class="viewer-overlay">
-              <div class="annot-circle blue" style="top:25%;left:20%">1</div>
-              <div class="annot-circle blue" style="top:40%;left:55%">2</div>
-              <div class="annot-circle blue" style="top:60%;left:35%">3</div>
-              <div class="annot-circle blue" style="top:70%;left:70%">4</div>
-              <div class="annot-circle gold" style="top:20%;left:25%">A</div>
-              <div class="annot-circle gold" style="top:30%;left:50%">B</div>
-              <div class="annot-circle gold" style="top:45%;left:30%">C</div>
-              <div class="annot-circle gold" style="top:50%;left:65%">D</div>
-              <div class="annot-circle gold" style="top:65%;left:40%">E</div>
-              <div class="annot-circle gold" style="top:75%;left:60%">F</div>
-              <div class="annot-circle gold" style="top:35%;left:78%">G</div>
-              <div class="annot-halo" style="width:70px;height:70px;top:22%;left:18%"></div>
-              <div class="annot-halo" style="width:80px;height:80px;top:42%;left:48%"></div>
-              <div class="annot-halo" style="width:60px;height:60px;top:62%;left:58%"></div>
+              <img src="https://prod-images-static.radiopaedia.org/images/157210/332aa3dce58732523d3db595a86bc2_big_gallery.jpeg" alt="CBCT Scan" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.1) brightness(0.7);z-index:0" onerror="this.style.display='none'">
+              <div class="annotations-layer" style="z-index:1">
+                <div class="annot-circle blue" style="top:25%;left:20%">1</div>
+                <div class="annot-circle blue" style="top:40%;left:55%">2</div>
+                <div class="annot-circle blue" style="top:60%;left:35%">3</div>
+                <div class="annot-circle blue" style="top:70%;left:70%">4</div>
+                <div class="annot-circle gold" style="top:20%;left:25%">A</div>
+                <div class="annot-circle gold" style="top:30%;left:50%">B</div>
+                <div class="annot-circle gold" style="top:45%;left:30%">C</div>
+                <div class="annot-circle gold" style="top:50%;left:65%">D</div>
+                <div class="annot-circle gold" style="top:65%;left:40%">E</div>
+                <div class="annot-circle gold" style="top:75%;left:60%">F</div>
+                <div class="annot-circle gold" style="top:35%;left:78%">G</div>
+                <div class="annot-halo" style="width:70px;height:70px;top:22%;left:18%"></div>
+                <div class="annot-halo" style="width:80px;height:80px;top:42%;left:48%"></div>
+                <div class="annot-halo" style="width:60px;height:60px;top:62%;left:58%"></div>
+              </div>
             </div>
             <div class="legend-bar">
               <span><span class="legend-dot" style="background:#3b9ecc"></span>Vos annotations (4)</span>
@@ -507,7 +569,7 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
       </div>
     </div>
 
-    <!-- SECTION 5 — DÉCIDER -->
+    <!-- SECTION 4 — DÉCIDER -->
     <div class="section" id="decider">
       <h2>Étape 4 — Plan de traitement</h2>
       <p class="subtitle">3 options thérapeutiques validées par le Dr. Fromental</p>
@@ -594,6 +656,44 @@ table.compare td:last-child { text-align: left; color: #6b7280; font-size: 11px;
 
       <div class="btn-center">
         <button class="btn-primary" style="width:auto;padding:14px 48px">Terminer le cas pratique ✓</button>
+      </div>
+    </div>
+
+    <!-- SECTION 5 — RÉSULTAT -->
+    <div class="section" id="resultat">
+      <div class="card" style="text-align:center;padding:40px">
+        <h2 style="margin-bottom:16px">Résultat final</h2>
+        <div class="result-score">76%</div>
+        <div class="result-subtitle">Score de concordance avec le Dr. Fromental</div>
+
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+          <div class="progress-goal">Objectif 85%</div>
+        </div>
+
+        <div class="result-stats">
+          <div class="result-stat">
+            <div class="stat-val">4/7</div>
+            <div class="stat-label">Pathologies détectées</div>
+          </div>
+          <div class="result-stat">
+            <div class="stat-val">8:42</div>
+            <div class="stat-label">Temps d'analyse</div>
+          </div>
+          <div class="result-stat">
+            <div class="stat-val">12/45</div>
+            <div class="stat-label">Rang promotion</div>
+          </div>
+        </div>
+
+        <div class="gold-box" style="text-align:left">
+          <strong>Conseil du Dr. Fromental :</strong> Travaillez le fenêtrage pour détecter les lésions résiduelles. C'est la clé pour passer de 76% à 85%.
+        </div>
+
+        <div class="result-actions">
+          <a href="cas-pratique.html" class="btn-primary" style="width:auto;padding:14px 32px">Nouveau cas pratique →</a>
+          <a href="profil.html" class="btn-secondary" style="width:auto;padding:14px 32px">Voir mon profil</a>
+        </div>
       </div>
     </div>
 
